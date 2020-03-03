@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { MyNavbar } from "./MyNavbar";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <React.Fragment>
+    <Router>
+      <MyNavbar />
+
+      <Switch>
+        {/* <Route
+          exact
+          path="/"
+          render={props => (
+            <CustomerTable {...props} endpoint="127.0.0.1:8000/customers" />
+          )}
+        />
+        <Route
+          exact
+          path="/accounts"
+          render={props => (
+            <AccountTable {...props} endpoint="127.0.0.1:8000/accounts" />
+          )}
+        />
+        <Route exact path="/details" component={Details} /> */}
+      </Switch>
+    </Router>
+  </React.Fragment>
+);
 
 export default App;
