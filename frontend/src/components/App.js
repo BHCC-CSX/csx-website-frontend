@@ -8,14 +8,8 @@ const App = () => (
       <MyNavbar />
 
       <Switch>
+        <Route exact path="/"></Route>
         {/* <Route
-          exact
-          path="/"
-          render={props => (
-            <CustomerTable {...props} endpoint="127.0.0.1:8000/customers" />
-          )}
-        />
-        <Route
           exact
           path="/accounts"
           render={props => (
