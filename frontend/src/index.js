@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "bootswatch/dist/flatly/bootstrap.min.css";
+import 'antd/dist/antd.css';
+//import "bootswatch/dist/flatly/bootstrap.min.css";
 import "./index.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";

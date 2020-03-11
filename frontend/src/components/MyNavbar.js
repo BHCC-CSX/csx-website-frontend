@@ -1,35 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Layout, Menu } from "antd";
+import { withRouter } from "react-router";
 
-export const MyNavbar = () => (
-  <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
-    <div className="container">
-      <div className="navbar-header">
-        <Navbar.Brand as={Link} to="/">
-          BHCC Computer Science Exchange
-        </Navbar.Brand>
-      </div>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          {/* className="navbar navbar-default navbar-expand-lg navbar-dark bg-dark fixed-top" */}
-          <Container>
-            <div className="collapse navbar-collapse">
-              <Nav.Item>
-                <Nav.Link as={Link} to="/">
-                  Home
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as={Link} to="/projects">
-                  Projects
-                </Nav.Link>
-              </Nav.Item>
-            </div>
-          </Container>
-        </Nav>
-      </Navbar.Collapse>
-    </div>
-  </Navbar>
-);
+const { Header, Content, Footer } = Layout;
+
+export const MyHeader = props => {
+  const { location } = props;
+  return(
+  <Header>
+    <div className="logo" />
+    <Menu
+      theme="dark"
+      mode="horizontal"
+      selectedKeys = {[location.pathname]}
+      style={{ lineHeight: '64px' }}
+    >
+      <Menu.Item key="/"><Link to="/">Home</Link></Menu.Item>
+      <Menu.Item key="/projects"><Link to="/projects">Projects</Link></Menu.Item>
+    </Menu>
+  </Header>
+)};
+

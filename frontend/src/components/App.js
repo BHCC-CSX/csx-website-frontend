@@ -1,11 +1,27 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { MyNavbar } from "./MyNavbar";
+import { Layout } from "antd";
+import { MyHeader } from "./MyNavbar";
+import {withRouter} from "react-router";
 
-const App = () => (
+const {Header, Content, Footer} = Layout;
+
+const App = () => {
+  const MyHeaderWithRouter = withRouter(props => <MyHeader {...props}/>);
+  return (
   <React.Fragment>
     <Router>
-      <MyNavbar />
+      <Layout className="layout">
+        <MyHeaderWithRouter />
+        <Content style={{ padding: '20px 50px' }}>
+          <div className="site-layout-content">
+            <p>Something Here</p>
+          </div>
+        </Content>
+        <Footer>
+          <p> Feet </p>
+        </Footer>
+      </Layout>
 
       <Switch>
         <Route exact path="/"></Route>
@@ -20,6 +36,6 @@ const App = () => (
       </Switch>
     </Router>
   </React.Fragment>
-);
+)}
 
 export default App;
