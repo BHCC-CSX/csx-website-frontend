@@ -29,6 +29,24 @@ export const MyHeader = props => {
         <Menu.Item key="/projects">
           <Link to="/projects">Projects</Link>
         </Menu.Item>
+        <Menu.Item style={{ float: "right" }}>
+          <a
+            href="https://discord.gg/76xbjPA"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Discord"
+          >
+            <i className="fab fa-discord Nav-icon"></i>
+          </a>
+          <a
+            href="https://github.com/BHCC-CSX"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Github"
+          >
+            <i class="fab fa-github-square Nav-icon"></i>
+          </a>
+        </Menu.Item>
       </Menu>
     </Header>
   );
