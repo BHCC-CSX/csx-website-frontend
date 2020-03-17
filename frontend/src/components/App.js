@@ -5,12 +5,15 @@ import Home from "./Home";
 import Projects from "./Projects";
 import "../App.css";
 
-const { Header, Content, Footer } = Layout;
-
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/projects" component={Projects} />
-        {/* <Route
+const App = () => (
+  <React.Fragment>
+    <Router>
+      <MyNavbar />
+      <main role="main" className="flex-shrink-0">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/projects" component={Projects} />
+          {/* <Route
           exact
           path="/accounts"
           render={props => (
@@ -19,9 +22,16 @@ const { Header, Content, Footer } = Layout;
         />
         <Route exact path="/details" component={Details} /> */}
         </Switch>
-      </Router>
-    </React.Fragment>
-  );
-};
+      </main>
+      <footer className="footer mt-auto pt-4 pb-2 bg-dark text-white">
+        <div className="container">
+          <p style={{ textAlign: "center" }}>
+            &copy; BHCC Computer Science Exchange 2020
+          </p>
+        </div>
+      </footer>
+    </Router>
+  </React.Fragment>
+);
 
 export default App;

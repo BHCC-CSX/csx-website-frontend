@@ -1,7 +1,75 @@
 import React, { Component } from "react";
+import { Jumbotron } from "react-bootstrap";
 
 export default class Home extends Component {
   render() {
-    return <div>Home</div>;
+    return (
+      <div>
+        <div className="Banner">
+          <div className="Banner-Overlay">
+            <div className="Banner-Text-Box">
+              <h1 className="Banner-Text bg-white text-primary">
+                BHCC Computer Science Exchange
+              </h1>
+            </div>
+          </div>
+        </div>
+        <Jumbotron className="mb-0">
+          <p className="lead">
+            The Bunker Hill Community College Computer Science Exchange is an
+            organization focused on providing students with opportunities to
+            gain practical experience with the field. Members are encouraged to
+            participate in our project teams or even start their own. Some of
+            our events include coding competitions, guest talks, study breaks
+            and workshops.
+          </p>
+          <hr className="my-4"></hr>
+          <form
+            action="https://appspot.us4.list-manage.com/subscribe/post?u=18436d21c9c56d0fd4b060eba&amp;id=cbc9faf7fb"
+            method="post"
+            id="mc-embedded-subscribe-form"
+            name="mc-embedded-subscribe-form"
+            className="validate"
+            target="_blank"
+            novalidate
+          >
+            <div id="form-group">
+              <label for="mce-EMAIL">Join our mailing list.</label>
+              <input
+                type="email"
+                value=""
+                name="EMAIL"
+                className="form-control"
+                id="mce-EMAIL"
+                placeholder="Enter email"
+                required
+              ></input>
+
+              <div
+                style={{ position: "absolute", left: "-5000px" }}
+                aria-hidden="true"
+              >
+                <input
+                  type="text"
+                  name="b_18436d21c9c56d0fd4b060eba_cbc9faf7fb"
+                  tabindex="-1"
+                  value=""
+                ></input>
+              </div>
+              <div className="clear">
+                <input
+                  type="submit"
+                  value="Subscribe"
+                  name="subscribe"
+                  id="mc-embedded-subscribe"
+                  className="btn btn-primary"
+                  style={{ marginTop: "10px" }}
+                ></input>
+              </div>
+            </div>
+          </form>
+        </Jumbotron>
+      </div>
+    );
   }
 }
