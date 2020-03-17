@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Navbar, Nav, Container, NavItem } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 
 export const MyNavbar = () => (
   <Navbar bg="dark" variant="dark" expand="sm" fixed="top">
@@ -8,9 +8,9 @@ export const MyNavbar = () => (
       <Navbar.Brand as={Link} to="/">
         BHCC CSX
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="">
+      <Navbar.Toggle />
+      <Navbar.Collapse>
+        <Nav>
           <Nav.Item as={NavLink} exact to="/" className="Navbar-Link">
             <Nav.Link as={Link} to="/">
               Home
@@ -24,17 +24,11 @@ export const MyNavbar = () => (
         </Nav>
         <Nav className="ml-auto navbar-right">
           <Navbar.Brand href="https://discord.gg/76xbjPA">
-            <Nav.Link
-              className="fab fa-discord Nav-Icon"
-              style={{ padding: "0", fontSize: "30px", margin: "0" }}
-            ></Nav.Link>
+            <Nav.Link className="fab fa-discord Nav-Icon Discord-Icon"></Nav.Link>
           </Navbar.Brand>
 
           <Navbar.Brand href="https://github.com/BHCC-CSX">
-            <Nav.Link
-              className="fab fa-github-square Nav-Icon"
-              style={{ padding: "0", fontSize: "30px", margin: "0" }}
-            ></Nav.Link>
+            <Nav.Link className="fab fa-github-square Nav-Icon"></Nav.Link>
           </Navbar.Brand>
         </Nav>
       </Navbar.Collapse>
