@@ -3,10 +3,10 @@ import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, NavItem } from "react-bootstrap";
 
 export const MyNavbar = () => (
-  <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+  <Navbar bg="dark" variant="dark" expand="sm" fixed="top">
     <Container>
       <Navbar.Brand as={Link} to="/">
-        BHCC Computer Science Exchange
+        BHCC CSX
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

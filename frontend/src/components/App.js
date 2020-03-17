@@ -9,11 +9,11 @@ const App = () => (
   <React.Fragment>
     <Router>
       <MyNavbar />
-
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/projects" component={Projects} />
-        {/* <Route
+      <main role="main" className="flex-shrink-0">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/projects" component={Projects} />
+          {/* <Route
           exact
           path="/accounts"
           render={props => (
@@ -21,7 +21,15 @@ const App = () => (
           )}
         />
         <Route exact path="/details" component={Details} /> */}
-      </Switch>
+        </Switch>
+      </main>
+      <footer className="footer mt-auto pt-4 pb-2 bg-dark text-white">
+        <div className="container">
+          <p style={{ textAlign: "center" }}>
+            &copy; BHCC Computer Science Exchange 2020
+          </p>
+        </div>
+      </footer>
     </Router>
   </React.Fragment>
 );

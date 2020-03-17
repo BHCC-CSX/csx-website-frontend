@@ -39,7 +39,7 @@
 
 .Banner-Text {
   display: inline-block;
-  margin: 5px;
+  margin: -5px;
   padding: 0px 10px 3px 10px;
   font-family: Verdana;
   font-size: 30px;
