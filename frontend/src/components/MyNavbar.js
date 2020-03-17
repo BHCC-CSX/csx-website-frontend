@@ -1,35 +1,43 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+import { Navbar, Nav, Container, NavItem } from "react-bootstrap";
 
 export const MyNavbar = () => (
   <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
-    <div className="container">
-      <div className="navbar-header">
-        <Navbar.Brand as={Link} to="/">
-          BHCC Computer Science Exchange
-        </Navbar.Brand>
-      </div>
+    <Container>
+      <Navbar.Brand as={Link} to="/">
+        BHCC Computer Science Exchange
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          {/* className="navbar navbar-default navbar-expand-lg navbar-dark bg-dark fixed-top" */}
-          <Container>
-            <div className="collapse navbar-collapse">
-              <Nav.Item>
-                <Nav.Link as={Link} to="/">
-                  Home
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as={Link} to="/projects">
-                  Projects
-                </Nav.Link>
-              </Nav.Item>
-            </div>
-          </Container>
+        <Nav className="">
+          <Nav.Item as={NavLink} exact to="/" className="Navbar-Link">
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item as={NavLink} exact to="/projects" className="Navbar-Link">
+            <Nav.Link as={Link} to="/projects">
+              Projects
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <Nav className="ml-auto navbar-right">
+          <Navbar.Brand href="https://discord.gg/76xbjPA">
+            <Nav.Link
+              className="fab fa-discord Nav-Icon"
+              style={{ padding: "0", fontSize: "30px", margin: "0" }}
+            ></Nav.Link>
+          </Navbar.Brand>
+
+          <Navbar.Brand href="https://github.com/BHCC-CSX">
+            <Nav.Link
+              className="fab fa-github-square Nav-Icon"
+              style={{ padding: "0", fontSize: "30px", margin: "0" }}
+            ></Nav.Link>
+          </Navbar.Brand>
         </Nav>
       </Navbar.Collapse>
-    </div>
+    </Container>
   </Navbar>
 );

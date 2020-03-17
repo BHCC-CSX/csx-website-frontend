@@ -1,38 +1,52 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.Site {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.Site-content {
+  flex: 1;
+}
+
+.Nav-logo {
+  width: 100px;
+  height: 31px;
+  margin: 16px 20px 16px -30px;
+  float: left;
+}
+
+.Nav-Icon {
+  font-size: 35px;
+  margin: 0px 10px 0px 10px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Banner {
+  width: 100%;
+  height: 450px;
+  background: url("/clubphoto.jpg") no-repeat center center;
+  background-size: cover;
+  background-position: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Banner-Overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+}
+
+.Banner-Text-Box {
+  padding: 350px 0px 0px 50px;
+}
+
+.Banner-Text {
+  display: inline-block;
+  margin: 5px;
+  padding: 0px 10px 3px 10px;
+  font-family: Verdana;
+  font-size: 30px;
+  font-weight: normal;
+  background-color: gainsboro;
+}
+
+.Navbar-Link:hover {
+  text-decoration: none !important;
 }

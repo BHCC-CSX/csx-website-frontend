@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MyNavbar } from "./MyNavbar";
+import Home from "./Home";
+import Projects from "./Projects";
+import "../App.css";
 
 const App = () => (
   <React.Fragment>
@@ -8,7 +11,8 @@ const App = () => (
       <MyNavbar />
 
       <Switch>
-        <Route exact path="/"></Route>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/projects" component={Projects} />
         {/* <Route
           exact
           path="/accounts"
