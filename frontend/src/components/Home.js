@@ -31,7 +31,7 @@ export default class Home extends Component {
             name="mc-embedded-subscribe-form"
             className="validate"
             target="_blank"
-            novalidate
+            noValidate
           >
             <div id="form-group">
               <label for="mce-EMAIL">Join our mailing list.</label>
@@ -52,7 +52,7 @@ export default class Home extends Component {
                 <input
                   type="text"
                   name="b_18436d21c9c56d0fd4b060eba_cbc9faf7fb"
-                  tabindex="-1"
+                  tabIndex="-1"
                   value=""
                 ></input>
               </div>
