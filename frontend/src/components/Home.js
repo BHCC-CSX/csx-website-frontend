@@ -5,10 +5,10 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <div className="Banner">
-          <div className="Banner-Overlay">
-            <div className="Banner-Text-Box">
-              <h1 className="Banner-Text bg-white text-primary">
+        <div className="banner">
+          <div className="banner-overlay">
+            <div className="banner-text-box">
+              <h1 className="banner-text bg-white text-primary">
                 BHCC Computer Science Exchange
               </h1>
             </div>

@@ -25,17 +25,17 @@ export const MyNavbar = () => (
         </Nav>
         <Nav className="ml-auto navbar-right">
           <Navbar.Brand
-            className="Icon-Brand"
+            className="icon-brand"
             href="https://discord.gg/76xbjPA"
           >
-            <span className="fab fa-discord Nav-Icon Discord-Icon"></span>
+            <span className="fab fa-discord nav-icon discord-icon"></span>
           </Navbar.Brand>
 
           <Navbar.Brand
-            className="Icon-Brand"
+            className="icon-brand"
             href="https://github.com/BHCC-CSX"
           >
-            <span className="fab fa-github-square Nav-Icon"></span>
+            <span className="fab fa-github-square nav-icon"></span>
           </Navbar.Brand>
         </Nav>
       </Navbar.Collapse>
