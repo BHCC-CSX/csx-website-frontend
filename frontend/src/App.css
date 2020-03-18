@@ -20,6 +20,10 @@
   color: white;
 }
 
+.Nav-Icon:hover {
+  color: var(--primary);
+}
+
 .Discord-Icon {
   margin-top: 1px;
 }
@@ -50,8 +54,4 @@
   font-size: 30px;
   font-weight: normal;
   background-color: gainsboro;
-}
-
-.Navbar-Link:hover {
-  text-decoration: none !important;
 }
