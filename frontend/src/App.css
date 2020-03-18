@@ -1,39 +1,49 @@
-.Site {
+.site {
   min-height: 100vh;
 }
 
-.Site-content {
+.site-content {
   flex: 1;
 }
 
-.Nav-logo {
+.nav-logo {
   width: 100px;
   height: 31px;
   margin: 16px 20px 16px -30px;
   float: left;
 }
 
-.Nav-Icon {
+.nav-icon {
   padding: 0 !important;
   margin: 0;
   font-size: 30px;
   color: white;
 }
 
-.Icon-Brand {
+.icon-brand {
   padding: 0;
   margin: 4px 5px 0px 5px;
 }
 
-.Nav-Icon:hover {
+.fixed-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.fixed-width-card {
+  width: 300px;
+}
+
+.nav-icon:hover {
   color: var(--primary);
 }
 
-.Discord-Icon {
+.discord-icon {
   margin-top: 1px;
 }
 
-.Banner {
+.banner {
   width: 100%;
   height: 450px;
   background: url("/clubphoto.jpg") no-repeat center center;
@@ -41,17 +51,17 @@
   background-position: center;
 }
 
-.Banner-Overlay {
+.banner-overlay {
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
 }
 
-.Banner-Text-Box {
+.banner-text-box {
   padding: 350px 0px 0px 50px;
 }
 
-.Banner-Text {
+.banner-text {
   display: inline-block;
   margin: -5px;
   padding: 0px 10px 3px 10px;
