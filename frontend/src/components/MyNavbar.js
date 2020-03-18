@@ -24,11 +24,17 @@ export const MyNavbar = () => (
           </LinkContainer>
         </Nav>
         <Nav className="ml-auto navbar-right">
-          <Navbar.Brand href="https://discord.gg/76xbjPA">
+          <Navbar.Brand
+            className="Icon-Brand"
+            href="https://discord.gg/76xbjPA"
+          >
             <span className="fab fa-discord Nav-Icon Discord-Icon"></span>
           </Navbar.Brand>
 
-          <Navbar.Brand href="https://github.com/BHCC-CSX">
+          <Navbar.Brand
+            className="Icon-Brand"
+            href="https://github.com/BHCC-CSX"
+          >
             <span className="fab fa-github-square Nav-Icon"></span>
           </Navbar.Brand>
         </Nav>
