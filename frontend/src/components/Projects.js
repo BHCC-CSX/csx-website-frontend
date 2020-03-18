@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CardDeck, Card, Container } from "react-bootstrap";
+import { Button, Card, Container, Row, Col } from "react-bootstrap";
 
 export default class Projects extends Component {
   state = {
@@ -22,14 +22,18 @@ export default class Projects extends Component {
     return this.state.projects.map((project, index) => {
       const { title, description, technology, image } = project;
       return (
-        <Card>
-          <Card.Img variant="top" src={image} />
-          <Card.Body>
-            <Card.Title>{title}</Card.Title>
-            <Card.Text>{description}</Card.Text>
-          </Card.Body>
-          <Card.Footer>{technology}</Card.Footer>
-        </Card>
+        <Col className="md-4 sm-2 d-flex">
+          <Card className="mb-4 fixed-width-card">
+            <Card.Img variant="top" className="fixed-image" src={image} />
+            <Card.Body className="d-flex flex-column">
+              <Card.Title>{title}</Card.Title>
+              <Card.Text>{description}</Card.Text>
+              <Button className="mt-auto mr-auto align-self-end">
+                Read More
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
       );
     });
   }
@@ -37,7 +41,8 @@ export default class Projects extends Component {
   render() {
     return (
       <Container>
-        <CardDeck>{this.renderCards()}</CardDeck>
+        <h1>Projects</h1>
+        <Row>{this.renderCards()}</Row>
       </Container>
     );
   }
