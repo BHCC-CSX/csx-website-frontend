@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MyNavbar } from "./MyNavbar";
 import Home from "./Home";
 import Projects from "./Projects";
+import ProjectsDetail from "./ProjectsDetail";
 import "../App.css";
 
 const App = () => (
@@ -13,6 +14,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/projects" component={Projects} />
+          <Route exact path={`/projects/:id`} component={ProjectsDetail} />
           {/* <Route
           exact
           path="/accounts"
