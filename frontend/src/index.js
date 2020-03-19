@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "bootswatch/dist/flatly/bootstrap.min.css";
+import "antd/dist/antd.css";
 import "./index.css";
 import App from "./components/App";
 
