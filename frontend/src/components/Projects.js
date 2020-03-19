@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default class Projects extends Component {
   state = {
@@ -7,7 +8,7 @@ export default class Projects extends Component {
   };
 
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/api/projects/")
+    fetch("/api/projects/")
       .then(response => {
         return response.json();
       })
@@ -20,16 +21,16 @@ export default class Projects extends Component {
 
   renderCards() {
     return this.state.projects.map((project, index) => {
-      const { title, description, technology, image } = project;
+      const { id, title, description, image } = project;
       return (
-        <Col className="md-4 sm-2 d-flex">
-          <Card className="mb-4 fixed-width-card">
+        <Col md={6} sm={10} xs={10} className="mx-auto d-flex">
+          <Card className="mb-4">
             <Card.Img variant="top" className="fixed-image" src={image} />
             <Card.Body className="d-flex flex-column">
               <Card.Title>{title}</Card.Title>
               <Card.Text>{description}</Card.Text>
               <Button className="mt-auto mr-auto align-self-end">
-                Read More
+                <Link to={`/projects/${id}`}>Read More</Link>
               </Button>
             </Card.Body>
           </Card>
