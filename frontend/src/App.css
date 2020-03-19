@@ -31,10 +31,6 @@
   object-fit: cover;
 }
 
-.fixed-width-card {
-  width: 300px;
-}
-
 .nav-icon:hover {
   color: var(--primary);
 }
