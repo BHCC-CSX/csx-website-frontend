@@ -8,8 +8,9 @@ export default class Home extends Component {
         <div className="banner">
           <div className="banner-overlay">
             <div className="banner-text-box">
+              <h1 className="my-2 banner-text bg-white text-primary">BHCC</h1>
               <h1 className="banner-text bg-white text-primary">
-                BHCC Computer Science Exchange
+                Computer Science Exchange
               </h1>
             </div>
           </div>
