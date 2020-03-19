@@ -25,12 +25,21 @@ export default class Projects extends Component {
       return (
         <Col md={6} sm={10} xs={10} className="mx-auto d-flex">
           <Card className="mb-4">
-            <Card.Img variant="top" className="fixed-image" src={image} />
+            <Card.Img
+              alt=""
+              variant="top"
+              className="fixed-image"
+              src={image}
+            />
             <Card.Body className="d-flex flex-column">
               <Card.Title>{title}</Card.Title>
               <Card.Text>{description}</Card.Text>
-              <Button className="mt-auto mr-auto align-self-end">
-                <Link to={`/projects/${id}`}>Read More</Link>
+              <Button
+                as={Link}
+                to={`/projects/${id}`}
+                className="mt-auto mr-auto align-self-end"
+              >
+                Read More
               </Button>
             </Card.Body>
           </Card>
