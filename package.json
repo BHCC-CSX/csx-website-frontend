@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server",
     "dev": "cd frontend/ && npm install && REACT_APP_API_ENDPOINT=http://localhost:8000/api npm run start",
-    "prod": "cd frontend/ && npm install && npm run build"
+    "build": "cd frontend/ && npm install && npm run build"
   },
   "repository": {
     "type": "git",
