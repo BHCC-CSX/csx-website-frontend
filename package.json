@@ -14,6 +14,10 @@
   },
   "author": "",
   "license": "ISC",
+  "cacheDirectories": [
+    "node_modules",
+    "frontend/node_modules"
+  ],
   "bugs": {
     "url": "https://github.com/BHCC-CSX/csx-website-frontend/issues"
   },
