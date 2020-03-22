@@ -8,7 +8,6 @@ export default class Projects extends Component {
   };
 
   componentDidMount() {
-    console.log(process.env.REACT_APP_API_ENDPOINT);
     fetch(process.env.REACT_APP_API_ENDPOINT + "/projects/")
       .then(response => {
         return response.json();
