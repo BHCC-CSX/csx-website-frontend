@@ -35,10 +35,10 @@ export default class Home extends Component {
             noValidate
           >
             <div id="form-group">
-              <label for="mce-EMAIL">Join our mailing list.</label>
+              <label htmlFor="mce-EMAIL">Join our mailing list.</label>
               <input
                 type="email"
-                value=""
+                defaultValue=""
                 name="EMAIL"
                 className="form-control"
                 id="mce-EMAIL"
@@ -55,6 +55,7 @@ export default class Home extends Component {
                   name="b_18436d21c9c56d0fd4b060eba_cbc9faf7fb"
                   tabIndex="-1"
                   value=""
+                  readOnly
                 ></input>
               </div>
               <div className="clear">

@@ -23,7 +23,7 @@ export default class Projects extends Component {
     return this.state.projects.map((project, index) => {
       const { id, title, description, image } = project;
       return (
-        <Col md={6} sm={10} xs={10} className="mx-auto d-flex">
+        <Col md={6} sm={10} xs={10} className="mx-auto d-flex" key={id}>
           <Card className="mb-4">
             <Card.Img
               alt=""
