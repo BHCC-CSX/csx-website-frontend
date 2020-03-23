@@ -10,7 +10,7 @@ export default class ProjectsDetail extends Component {
     const { id } = this.props.match.params;
 
     if (id != null) {
-      fetch(process.env.REACT_APP_API_ENDPOINT + `/projects/${id}`)
+      fetch(process.env.REACT_APP_API_BASE_URL + `/projects/${id}`)
         .then(response => {
           return response.json();
         })
