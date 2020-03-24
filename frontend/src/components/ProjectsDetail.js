@@ -36,7 +36,7 @@ export default class ProjectsDetail extends Component {
       } = this.state.project;
 
       return (
-        <Container>
+        <Container style={{paddingTop: "70px"}}>
           <h1>{title}</h1>
           <Row>
             <Col md={8}>

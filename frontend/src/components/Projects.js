@@ -50,7 +50,7 @@ export default class Projects extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{paddingTop: "70px"}}>
         <h1>Projects</h1>
         <Row>{this.renderCards()}</Row>
       </Container>
