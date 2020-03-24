@@ -56,13 +56,13 @@ const Home = (props) => {
                 >
                   <div id="form-group">
                     <div className="input-group input-lg">
-                    <div className="input-group-prepend">
+                        <div className="input-group-prepend">
                           <span className="input-group-text">
                             <i className="now-ui-icons ui-1_email-85"></i>
                           </span>
                         </div>
                       <input
-                        type="email"
+                        type="text"
                         defaultValue=""
                         name="EMAIL"
                         className="form-control"
