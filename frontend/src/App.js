@@ -7,19 +7,19 @@ import Projects from "./views/Projects";
 import "./App.css";
 
 const App = () => {
-  return(
-  <>
-    <BrowserRouter>
+  return (
+    <>
+      <BrowserRouter>
         <Switch>
           <Route path="/">
-            <Route path="" render={props => <Home {...props} />}/>
-            <Route path="projects" render={props => <Projects {...props}/>}/>
+            <Route exact path="/" render={props => <Home {...props} />} />
+            <Route path="/projects" render={props => <Projects {...props} />} />
           </Route>
         </Switch>
-    </BrowserRouter>
-    <MyFooter />
-  </>
+      </BrowserRouter>
+      <MyFooter />
+    </>
   );
-}
+};
 
 export default App;
