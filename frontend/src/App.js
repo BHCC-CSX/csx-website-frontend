@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./views/Home";
-import MyFooter from "./components/Footers/MyFooter";
 import Projects from "./views/Projects";
 //import ProjectsDetail from "./views/ProjectsDetail";
 import "./App.css";
@@ -17,7 +16,6 @@ const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
-      <MyFooter />
     </>
   );
 };
