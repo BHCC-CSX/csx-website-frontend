@@ -11,6 +11,7 @@ import {
   Col
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Layout } from "./WrappedLayout";
 
 export default class Projects extends Component {
   state = {
@@ -31,7 +32,6 @@ export default class Projects extends Component {
 
   renderCards() {
     if (this.state.projects != null) {
-      console.log(this.state.projects);
       return this.state.projects.map((project, index) => {
         const { id, title, description, image } = project;
         return (
@@ -50,6 +50,7 @@ export default class Projects extends Component {
                   as={Link}
                   to={`/projects/${id}`}
                   className="mt-auto mr-auto align-self-end"
+                  color="primary"
                 >
                   Read More
                 </Button>
@@ -65,10 +66,14 @@ export default class Projects extends Component {
 
   render() {
     return (
-      <Container style={{ paddingTop: "70px" }}>
-        <h1>Projects</h1>
-        <Row>{this.renderCards()}</Row>
-      </Container>
+      <>
+        <Layout transparent={false}>
+          <Container style={{ paddingTop: "75px" }}>
+            <h1>Projects</h1>
+            <Row>{this.renderCards()}</Row>
+          </Container>
+        </Layout>
+      </>
     );
   }
 }
