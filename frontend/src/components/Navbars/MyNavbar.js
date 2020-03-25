@@ -85,12 +85,12 @@ const MyNavbar = props => {
             navbar
           >
             <Nav navbar>
-              <NavItem>
+              <NavItem className="pt-1">
                 <NavLink to="/" tag={Link}>
                   Home
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="pt-1">
                 <NavLink to="/projects" tag={Link}>
                   Projects
                 </NavLink>
