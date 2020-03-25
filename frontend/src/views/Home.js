@@ -5,7 +5,7 @@ import MyParallaxHeader from "../components/Headers/MyParallaxHeader";
 const Home = props => {
   return (
     <>
-      <Layout transparent={true} scroll={250}>
+      <Layout transparent={true} scroll={400}>
         <MyParallaxHeader />
         <div className="section">
           <div className="container">
