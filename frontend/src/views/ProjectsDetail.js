@@ -38,30 +38,37 @@ export default class ProjectsDetail extends Component {
 
       return (
         <Layout>
-          <Container style={{paddingTop: "75px", paddingBottom: "15px"}}>
-            <h1>{title}</h1>
-            <Row>
-              <Col md={8}>
-                <img alt="" class="card-img-top" src={image}></img>
-              </Col>
-              <Col md={4}>
-                <h5>About the project:</h5>
-                <p>{description}</p>
-                <br />
-                <h5>Technology used:</h5>
-                <p>{technology}</p>
-                <br />
-                <h5>Coordinator:</h5>
-                <p>{coordinator}</p>
-                <br />
-                <h5>Coordinator email:</h5>
-                <p>{coordinator_email}</p>
-                <br />
-                <h5>
-                  <a href={link}>Github</a>
-                </h5>
-              </Col>
-            </Row>
+          <Container style={{ paddingTop: "75px", paddingBottom: "15px" }}>
+            <div className="section section-story-overview">
+              <Row>
+                <Col md="6">
+                  <h1>{title}</h1>
+                  <div
+                    className="image-container"
+                    style={{
+                      backgroundImage: "url('" + image + "')"
+                    }}
+                  ></div>
+                </Col>
+                <Col md="5">
+                  <h5>About the project:</h5>
+                  <p>{description}</p>
+                  <br />
+                  <h5>Technology used:</h5>
+                  <p>{technology}</p>
+                  <br />
+                  <h5>Coordinator:</h5>
+                  <p>{coordinator}</p>
+                  <br />
+                  <h5>Coordinator email:</h5>
+                  <p>{coordinator_email}</p>
+                  <br />
+                  <h5>
+                    <a href={link}>Github</a>
+                  </h5>
+                </Col>
+              </Row>
+            </div>
           </Container>
         </Layout>
       );
