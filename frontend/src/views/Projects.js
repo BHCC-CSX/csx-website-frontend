@@ -47,8 +47,8 @@ export default class Projects extends Component {
                 <CardTitle>{title}</CardTitle>
                 <CardText>{description}</CardText>
                 <Button
-                  as={Link}
-                  href={`/projects/${id}`}
+                  tag={Link}
+                  to={`/projects/${id}`}
                   className="mt-auto mr-auto align-self-end"
                   color="primary"
                 >
