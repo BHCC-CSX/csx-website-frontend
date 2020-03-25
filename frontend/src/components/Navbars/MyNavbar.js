@@ -97,11 +97,11 @@ const MyNavbar = props => {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://twitter.com/CreativeTim?ref=creativetim"
+                  href="https://discordapp.com/invite/76xbjPA"
                   target="_blank"
                   id="discord-link"
                 >
-                  <i className="fab fa-discord nav-icon discord-icon"></i>
+                  <i className="fab fa-discord nav-icon"></i>
                   <p className="d-lg-none d-xl-none">Discord</p>
                 </NavLink>
                 <UncontrolledTooltip target="#discord-link">
@@ -110,14 +110,14 @@ const MyNavbar = props => {
               </NavItem>
               <NavItem>
                 <NavLink
-                  href="https://www.facebook.com/CreativeTim?ref=creativetim"
+                  href="https://github.com/BHCC-CSX"
                   target="_blank"
-                  id="facebook-tooltip"
+                  id="github-tooltip"
                 >
                   <i className="fab fa-github-square nav-icon"></i>
                   <p className="d-lg-none d-xl-none">GitHub</p>
                 </NavLink>
-                <UncontrolledTooltip target="#facebook-tooltip">
+                <UncontrolledTooltip target="#github-tooltip">
                   Check us out on github.
                 </UncontrolledTooltip>
               </NavItem>
