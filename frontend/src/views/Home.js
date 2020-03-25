@@ -1,11 +1,10 @@
 import React from "react";
-import MyNavbar from "../components/Navbars/MyNavbar"
+import { Layout } from "./WrappedLayout";
 
 const Home = (props) => {
   return (
     <>
-    <MyNavbar transparent={true} scroll={250}/>
-    <div className="wrapper">
+    <Layout transparent={true} scroll={250}>
       <div className="page-header page-header-small">
         <div className="page-header-image" data-parallax="true" style={{
           "backgroundImage": "url('../clubphoto.jpg')",
@@ -97,7 +96,7 @@ const Home = (props) => {
           </div>
         </div>
       </div>
-    </div>
+      </Layout>
     </>
   );
 };
