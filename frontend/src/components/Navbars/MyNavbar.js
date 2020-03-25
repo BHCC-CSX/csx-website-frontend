@@ -101,8 +101,8 @@ const MyNavbar = props => {
                   target="_blank"
                   id="discord-link"
                 >
-                  <i className="fab fa-discord nav-icon"></i>
-                  <p className="d-lg-none d-xl-none">Discord</p>
+                  <i className="fab fa-discord nav-icon discord-icon"></i>
+                  <p className="d-lg-none d-xl-none sidebar-label">Discord</p>
                 </NavLink>
                 <UncontrolledTooltip target="#discord-link">
                   Join the Discord!
@@ -115,7 +115,7 @@ const MyNavbar = props => {
                   id="github-tooltip"
                 >
                   <i className="fab fa-github-square nav-icon"></i>
-                  <p className="d-lg-none d-xl-none">GitHub</p>
+                  <p className="d-lg-none d-xl-none sidebar-label">GitHub</p>
                 </NavLink>
                 <UncontrolledTooltip target="#github-tooltip">
                   Check us out on github.
