@@ -80,7 +80,7 @@ const MyNavbar = props => {
             </button>
           </div>
           <Collapse
-            className="justify-content-end bg-primary"
+            className="justify-content-end"
             isOpen={collapseOpen}
             navbar
           >
