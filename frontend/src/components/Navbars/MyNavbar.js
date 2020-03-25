@@ -12,18 +12,20 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 
-const MyNavbar = (props) => {
+const MyNavbar = props => {
   // State Management
   const scroll = props.scroll;
-  const transparent = props.transparent || false
-  const [navbarColor, setNavbarColor] = React.useState(transparent ? "navbar-transparent" : "");
+  const transparent = props.transparent || false;
+  const [navbarColor, setNavbarColor] = React.useState(
+    transparent ? "navbar-transparent" : ""
+  );
   const [collapseOpen, setCollapseOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const updateNavbarColor = (transparent) => {
+    const updateNavbarColor = transparent => {
       if (
-        document.documentElement.scrollTop > scroll-1 ||
-        document.body.scrollTop > scroll-1
+        document.documentElement.scrollTop > scroll - 1 ||
+        document.body.scrollTop > scroll - 1
       ) {
         setNavbarColor("");
       } else if (
@@ -38,7 +40,7 @@ const MyNavbar = (props) => {
       return function cleanup() {
         window.removeEventListener("scroll", updateNavbarColor);
       };
-    };
+    }
   }, [transparent, scroll]);
 
   // Component
@@ -53,14 +55,14 @@ const MyNavbar = (props) => {
           }}
         />
       ) : null}
-      <Navbar className={"fixed-top " + navbarColor} color="primary" expand="lg">
+      <Navbar
+        className={"fixed-top " + navbarColor}
+        color="primary"
+        expand="lg"
+      >
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand
-              href="/"
-              target="_blank"
-              id="navbar-brand"
-            >
+            <NavbarBrand href="/" target="_blank" id="navbar-brand">
               BHCC CSX
             </NavbarBrand>
             <button
@@ -89,7 +91,7 @@ const MyNavbar = (props) => {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/projects">
+                <NavLink to="/projects" tag={Link}>
                   Projects
                 </NavLink>
               </NavItem>
@@ -125,8 +127,6 @@ const MyNavbar = (props) => {
       </Navbar>
     </>
   );
-
-
 };
 
 export default MyNavbar;
