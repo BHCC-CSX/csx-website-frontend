@@ -16,7 +16,7 @@
 .nav-icon {
   padding: 0 !important;
   margin: 0;
-  font-size: 30px;
+  font-size: 25px !important;
   color: white;
 }
 
@@ -29,10 +29,6 @@
   width: 100%;
   height: 200px;
   object-fit: cover;
-}
-
-.nav-icon:hover {
-  color: var(--primary);
 }
 
 .discord-icon {
