@@ -62,9 +62,9 @@ const MyNavbar = props => {
       >
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand href="/" target="_blank" id="navbar-brand">
+            <NavLink tag={Link} to="/" id="navbar-brand">
               BHCC CSX
-            </NavbarBrand>
+            </NavLink>
             <button
               className="navbar-toggler navbar-toggler"
               onClick={() => {
