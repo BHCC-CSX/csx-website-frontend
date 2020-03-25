@@ -6,6 +6,7 @@ import {
   CardBody,
   CardTitle,
   CardText,
+  CardFooter,
   Container,
   Row,
   Col
@@ -36,7 +37,7 @@ export default class Projects extends Component {
         const { id, title, description, image } = project;
         return (
           <Col md={6} sm={10} xs={10} className="mx-auto d-flex" key={id}>
-            <Card className="mb-4">
+            <Card className="mb-4 d-flex">
               <CardImg
                 alt=""
                 variant="top"
@@ -52,7 +53,7 @@ export default class Projects extends Component {
                   className="mt-auto mr-auto align-self-end"
                   color="primary"
                 >
-                  Read More
+                    Read More
                 </Button>
               </CardBody>
             </Card>
@@ -60,7 +61,7 @@ export default class Projects extends Component {
         );
       });
     } else {
-      return null;
+      return <h1> Loading... </h1>;
     }
   }
 
