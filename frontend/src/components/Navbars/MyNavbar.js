@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import {
   Collapse,
-  NavbarBrand,
   Navbar,
   NavItem,
   NavLink,
@@ -85,13 +84,13 @@ const MyNavbar = props => {
             navbar
           >
             <Nav navbar>
-              <NavItem className="pt-1">
-                <NavLink to="/" tag={Link}>
+              <NavItem className="pt-1" active={window.location.pathname === '/'}>
+              <NavLink exact to="/" tag={Link}>
                   Home
                 </NavLink>
               </NavItem>
-              <NavItem className="pt-1">
-                <NavLink to="/projects" tag={Link}>
+              <NavItem className="pt-1" active={window.location.pathname.includes('/projects')}>
+                <NavLink exact to="/projects" tag={Link}>
                   Projects
                 </NavLink>
               </NavItem>
