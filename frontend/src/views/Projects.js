@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import { Button, Card, Container, Row, Col } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardImg,
+  CardBody,
+  CardTitle,
+  CardText,
+  Container,
+  Row,
+  Col
+} from "reactstrap";
 import { Link } from "react-router-dom";
 
 export default class Projects extends Component {
@@ -20,37 +30,42 @@ export default class Projects extends Component {
   }
 
   renderCards() {
-    return this.state.projects.map((project, index) => {
-      const { id, title, description, image } = project;
-      return (
-        <Col md={6} sm={10} xs={10} className="mx-auto d-flex" key={id}>
-          <Card className="mb-4">
-            <Card.Img
-              alt=""
-              variant="top"
-              className="fixed-image"
-              src={image}
-            />
-            <Card.Body className="d-flex flex-column">
-              <Card.Title>{title}</Card.Title>
-              <Card.Text>{description}</Card.Text>
-              <Button
-                as={Link}
-                to={`/projects/${id}`}
-                className="mt-auto mr-auto align-self-end"
-              >
-                Read More
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      );
-    });
+    if (this.state.projects != null) {
+      console.log(this.state.projects);
+      return this.state.projects.map((project, index) => {
+        const { id, title, description, image } = project;
+        return (
+          <Col md={6} sm={10} xs={10} className="mx-auto d-flex" key={id}>
+            <Card className="mb-4">
+              <CardImg
+                alt=""
+                variant="top"
+                className="fixed-image"
+                src={image}
+              />
+              <CardBody className="d-flex flex-column">
+                <CardTitle>{title}</CardTitle>
+                <CardText>{description}</CardText>
+                <Button
+                  as={Link}
+                  to={`/projects/${id}`}
+                  className="mt-auto mr-auto align-self-end"
+                >
+                  Read More
+                </Button>
+              </CardBody>
+            </Card>
+          </Col>
+        );
+      });
+    } else {
+      return null;
+    }
   }
 
   render() {
     return (
-      <Container style={{paddingTop: "70px"}}>
+      <Container style={{ paddingTop: "70px" }}>
         <h1>Projects</h1>
         <Row>{this.renderCards()}</Row>
       </Container>
