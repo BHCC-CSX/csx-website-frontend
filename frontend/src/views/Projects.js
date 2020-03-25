@@ -6,7 +6,6 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  CardFooter,
   Container,
   Row,
   Col
@@ -61,7 +60,7 @@ export default class Projects extends Component {
         );
       });
     } else {
-      return <h1> Loading... </h1>;
+      return null;
     }
   }
 
