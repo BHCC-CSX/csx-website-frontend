@@ -38,7 +38,7 @@ export default class ProjectsDetail extends Component {
 
       return (
         <Layout>
-          <Container style={{paddingTop: "75px"}}>
+          <Container style={{paddingTop: "75px", paddingBottom: "15px"}}>
             <h1>{title}</h1>
             <Row>
               <Col md={8}>
