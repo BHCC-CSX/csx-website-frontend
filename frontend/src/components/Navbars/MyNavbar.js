@@ -85,12 +85,12 @@ const MyNavbar = props => {
           >
             <Nav navbar>
               <NavItem className="pt-1" active={window.location.pathname === '/'}>
-              <NavLink exact to="/" tag={Link}>
+              <NavLink to="/" tag={Link}>
                   Home
                 </NavLink>
               </NavItem>
               <NavItem className="pt-1" active={window.location.pathname.includes('/projects')}>
-                <NavLink exact to="/projects" tag={Link}>
+                <NavLink to="/projects" tag={Link}>
                   Projects
                 </NavLink>
               </NavItem>
