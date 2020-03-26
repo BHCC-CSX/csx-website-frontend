@@ -70,3 +70,7 @@
 .wrapper {
   flex: 1 0 auto;
 }
+
+.lh-0 {
+  line-height: 0;
+}
