@@ -24,6 +24,6 @@ app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
 });
 
-server.listen(PORT, function() {
+app.listen(PORT, function() {
   console.error(`Node listening on port ${PORT}`);
 });
