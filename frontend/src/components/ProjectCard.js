@@ -27,7 +27,7 @@ export default class ProjectCard extends Component {
         {image ? (
           <CardImg alt="" variant="top" className="fixed-image" src={image} />
         ) : (
-          <Skeleton height={200} />
+          <div className="lh-0"><Skeleton height={200} /></div>
         )}
         <CardBody className="d-flex flex-column">
           <CardTitle>{title || <Skeleton />}</CardTitle>
