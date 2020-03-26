@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/BHCC-CSX/csx-website-frontend#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-force-ssl": "^0.3.2"
   }
 }
