@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import {
-  Button,
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardText,
-  Container,
-  Row,
-  Col
-} from "reactstrap";
-import { Link } from "react-router-dom";
+import { Container, Row, Col } from "reactstrap";
+import ProjectCard from "../components/ProjectCard";
 import { Layout } from "./WrappedLayout";
 
 export default class Projects extends Component {
@@ -33,29 +23,9 @@ export default class Projects extends Component {
   renderCards() {
     if (this.state.projects != null) {
       return this.state.projects.map((project, index) => {
-        const { id, title, description, image } = project;
         return (
-          <Col md={6} sm={10} xs={10} className="mx-auto d-flex" key={id}>
-            <Card className="mb-4 d-flex">
-              <CardImg
-                alt=""
-                variant="top"
-                className="fixed-image"
-                src={image}
-              />
-              <CardBody className="d-flex flex-column">
-                <CardTitle>{title}</CardTitle>
-                <CardText>{description}</CardText>
-                <Button
-                  tag={Link}
-                  to={`/projects/${id}`}
-                  className="mt-auto mr-auto align-self-end"
-                  color="primary"
-                >
-                    Read More
-                </Button>
-              </CardBody>
-            </Card>
+          <Col md={6} sm={10} xs={10} className="mx-auto d-flex" key={project.id}>
+            <ProjectCard project={project} />
           </Col>
         );
       });
@@ -64,13 +34,31 @@ export default class Projects extends Component {
     }
   }
 
+  renderPlaceHolders() {
+    return (
+      <React.Fragment>
+        {Array(2)
+          .fill()
+          .map((item, index) => (
+            <Col md={6} sm={10} xs={10} className="mx-auto d-flex" key={index}>
+              <ProjectCard />
+            </Col>
+          ))}
+      </React.Fragment>
+    );
+  }
+
   render() {
     return (
       <>
         <Layout transparent={false}>
           <Container style={{ paddingTop: "75px" }}>
             <h1>Projects</h1>
-            <Row>{this.renderCards()}</Row>
+            <Row>
+              {this.state.projects.length === 0
+                ? this.renderPlaceHolders()
+                : this.renderCards()}
+            </Row>
           </Container>
         </Layout>
       </>
