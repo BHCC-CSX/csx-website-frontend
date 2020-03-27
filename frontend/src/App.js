@@ -15,7 +15,7 @@ const App = () => {
             <Route exact path="/projects" render={props => <Projects {...props} />} />
             <Route path={"/projects/:id"} render={props => <ProjectsDetail {...props} />} />
             <Route path={"/404"} render={props => <NotFound {...props} />} />
-            <Route path="*" render={props => <NotFound {...props} />} />
+            <Route render={props => <NotFound {...props} />} />
         </Switch>
       </BrowserRouter>
     </>
