@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Layout } from "./WrappedLayout";
-import { Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 
 // https://icons8.com/ouch/illustration/abstract-page-not-found
 
