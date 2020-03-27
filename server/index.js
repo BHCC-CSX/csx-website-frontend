@@ -7,9 +7,7 @@ const app = express();
 
 function forceSSL(req, res, next) {
   // The 'x-forwarded-proto' check is for Heroku
-  if (!req.secure && process.env.NODE_ENV !== "development") {
-    console.log(req.get('host'));
-    console.log('\n' + req.url);
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
     return res.redirect('https://' + req.get('host') + req.url);
   }
   next();
@@ -21,13 +19,9 @@ app.use(forceSSL);
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
 // All remaining requests return the React app, so it can handle routing.
-app.get("*",  function(request, response) {
+app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
 });
-
-// app.get("*", function(request, response) {
-//   response.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
-// });
 
 app.listen(PORT, function() {
   console.error(`Node listening on port ${PORT}`);
