@@ -5,6 +5,7 @@ import DetailContainer from "../components/DetailContainer";
 export default class ProjectsDetail extends Component {
   state = {
     project: []
+    project: false,
   };
 
   componentDidMount() {
