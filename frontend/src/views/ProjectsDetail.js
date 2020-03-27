@@ -28,7 +28,7 @@ export default class ProjectsDetail extends Component {
 
   renderProject(){
     if (this.state.status_code != null && this.state.status_code !== 200){
-      return(<Redirect to="../404" />);
+      return(<Redirect to="/404" />);
     }
     return(<DetailContainer project={this.state.project}/>);
 
