@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import { Layout } from "./WrappedLayout";
 import DetailContainer from "../components/DetailContainer";
 
 export default class ProjectsDetail extends Component {
   state = {
-    project: []
     project: false,
+    status_code: null
   };
 
   componentDidMount() {
@@ -14,19 +15,23 @@ export default class ProjectsDetail extends Component {
     if (id != null) {
       fetch(process.env.REACT_APP_API_BASE_URL + `/projects/${id}`)
         .then(response => {
+          this.setState({status_code: response.status});
           return response.json();
         })
         .then(result => {
-          console.log(result);
           this.setState({
             project: result
           });
-        });
+        })
     }
   }
 
   renderProject(){
+    if (this.state.status_code != null && this.state.status_code !== 200){
+      return(<Redirect to="../404" />);
+    }
     return(<DetailContainer project={this.state.project}/>);
+
   };
 
   renderPlaceholder(){
