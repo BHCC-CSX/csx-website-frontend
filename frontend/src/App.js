@@ -11,12 +11,11 @@ const App = () => {
     <>
       <BrowserRouter>
         <Switch>
-          <Route path="/">
             <Route exact path="/" render={props => <Home {...props} />} />
             <Route exact path="/projects" render={props => <Projects {...props} />} />
             <Route path={"/projects/:id"} render={props => <ProjectsDetail {...props} />} />
-            <Route render={props => <NotFound {...props} />} />
-          </Route>
+            <Route path={"/404"} render={props => <NotFound {...props} />} />
+            <Route path="*" render={props => <NotFound {...props} />} />
         </Switch>
       </BrowserRouter>
     </>
