@@ -12,7 +12,7 @@ export class NotFound extends Component {
                 <Layout>
                     <Container className="content-center" style={{marginTop: "80px"}}>
                         <div className="section section-story-overview text-center">
-                            {/* <object type="image/svg+xml" data={"../404.svg"} height={500}>Your browser does not support SVG. :(</object> */}
+                            <object type="image/svg+xml" data={"../404.svg"} height={500}>Your browser does not support SVG. :(</object>
                             <h1>Oops!</h1>
                             <h2 className={"lead"}>The resource you requested could not be found!</h2>
                         </div>
