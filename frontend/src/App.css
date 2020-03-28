@@ -6,13 +6,6 @@
   flex: 1;
 }
 
-.nav-logo {
-  width: 100px;
-  height: 31px;
-  margin: 16px 20px 16px -30px;
-  float: left;
-}
-
 .nav-icon {
   padding: 0 !important;
   margin: 0;
@@ -20,9 +13,8 @@
   color: white;
 }
 
-.icon-brand {
-  padding: 0;
-  margin: 4px 5px 0px 5px;
+.discord-icon {
+  margin-top: 1px;
 }
 
 .sidebar-label {
@@ -33,38 +25,6 @@
   width: 100%;
   height: 200px;
   object-fit: cover;
-}
-
-.discord-icon {
-  margin-top: 1px;
-}
-
-.banner {
-  width: 100%;
-  height: 450px;
-  background: url("/clubphoto.jpg") no-repeat center center;
-  background-size: cover;
-  background-position: center;
-}
-
-.banner-overlay {
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 100%;
-  height: 100%;
-}
-
-.banner-text-box {
-  padding: 340px 0px 0px 30px;
-}
-
-.banner-text {
-  display: inline-block;
-  margin: -5px;
-  padding: 0px 10px 3px 10px;
-  font-family: Verdana;
-  font-size: 30px;
-  font-weight: normal;
-  background-color: gainsboro;
 }
 
 .wrapper {
