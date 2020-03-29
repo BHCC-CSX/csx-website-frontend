@@ -98,6 +98,7 @@ const MyNavbar = props => {
                 <NavLink
                   href="https://discordapp.com/invite/76xbjPA"
                   target="_blank"
+                  rel="noopener"
                   id="discord-link"
                 >
                   <i className="fab fa-discord nav-icon discord-icon"></i>
@@ -111,6 +112,7 @@ const MyNavbar = props => {
                 <NavLink
                   href="https://github.com/BHCC-CSX"
                   target="_blank"
+                  rel="noopener"
                   id="github-tooltip"
                 >
                   <i className="fab fa-github-square nav-icon"></i>
