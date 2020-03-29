@@ -14,6 +14,7 @@ function MyFooter() {
               <a
                 href="https://bhcc.edu"
                 target="_blank"
+                rel="noopener"
               >
                 BHCC WEBSITE
               </a>
