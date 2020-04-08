@@ -94,12 +94,18 @@ const MyNavbar = props => {
                   Projects
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="pt-1" active={window.location.pathname.includes('/login')}>
+                <NavLink to="/login" tag={Link}>
+                  Sign In
+                </NavLink>
+              </NavItem>
+              <NavItem className="pt-1">
                 <NavLink
                   href="https://discordapp.com/invite/76xbjPA"
                   target="_blank"
                   rel="noopener"
                   id="discord-link"
+                  className="pb-0"
                 >
                   <i className="fab fa-discord nav-icon discord-icon"></i>
                   <p className="d-lg-none d-xl-none sidebar-label">Discord</p>
@@ -108,12 +114,13 @@ const MyNavbar = props => {
                   Join the Discord!
                 </UncontrolledTooltip>
               </NavItem>
-              <NavItem>
+              <NavItem className="pt-1">
                 <NavLink
                   href="https://github.com/BHCC-CSX"
                   target="_blank"
                   rel="noopener"
                   id="github-tooltip"
+                  className="pb-0"
                 >
                   <i className="fab fa-github-square nav-icon"></i>
                   <p className="d-lg-none d-xl-none sidebar-label">GitHub</p>
