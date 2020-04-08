@@ -18,7 +18,7 @@
 }
 
 .sidebar-label {
-  transform: translate(0, -3px);
+  transform: translate(5px, -5px);
 }
 
 .fixed-image {
