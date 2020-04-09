@@ -6,7 +6,7 @@ const Home = props => {
   return (
     <>
       <Layout transparent={true} scroll={400}>
-        <MyParallaxHeader />
+        <MyParallaxHeader headerImage="clubphoto.jpg" headerText="BHCC Computer Science Exchange"/>
         <div className="section">
           <div className="container">
             <div className="row">
