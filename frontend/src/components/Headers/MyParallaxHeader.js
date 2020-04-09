@@ -1,6 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const MyParallaxHeader = () => {
+const MyParallaxHeader = (props) => {
+
   let parallaxComponent = React.createRef();
   React.useEffect(() => {
     if (window.innerWidth > 991) {
@@ -21,17 +23,22 @@ const MyParallaxHeader = () => {
       <div
         className="page-header-image"
         style={{
-          backgroundImage: "url('../clubphoto.jpg')"
+          backgroundImage: "url('" + props.headerImage + "')"
         }}
         ref={parallaxComponent}
       ></div>
       <div className="content-center">
         <div className="container">
-          <h2 className="title">BHCC Computer Science Exchange</h2>
+          <h2 className="title">{props.headerText}</h2>
         </div>
       </div>
     </div>
   );
+};
+
+MyParallaxHeader.propTypes = {
+  headerImage: PropTypes.string,
+  headerText: PropTypes.string
 };
 
 export default MyParallaxHeader;
