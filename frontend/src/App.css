@@ -34,3 +34,10 @@
 .lh-0 {
   line-height: 0;
 }
+
+.button-container {
+  text-align: center;
+  margin-top: -105px;
+  position: relative;
+  z-index: 100;
+}
