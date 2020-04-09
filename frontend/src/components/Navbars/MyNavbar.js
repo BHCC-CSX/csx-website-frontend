@@ -94,6 +94,11 @@ const MyNavbar = props => {
                   Projects
                 </NavLink>
               </NavItem>
+              <NavItem className="pt-1" active={window.location.pathname.includes('/blog')}>
+                <NavLink to="/blog" tag={Link}>
+                  Blog
+                </NavLink>
+              </NavItem>
               <NavItem className="pt-1" active={window.location.pathname.includes('/login')}>
                 <NavLink to="/login" tag={Link}>
                   Sign In
