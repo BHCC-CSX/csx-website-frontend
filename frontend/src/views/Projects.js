@@ -53,7 +53,7 @@ export default class Projects extends Component {
       <>
         <Layout transparent={false}>
           <Container style={{ paddingTop: "75px" }}>
-            <h1>Projects</h1>
+            <h2 className="title">Projects</h2>
             <Row>
               {this.state.projects.length === 0
                 ? this.renderPlaceHolders()
