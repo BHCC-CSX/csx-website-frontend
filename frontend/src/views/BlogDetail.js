@@ -2,47 +2,76 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import BlogPostContainer from "../components/BlogPostContainer";
+import axiosInstance from "../axios";
 
 export default class BlogDetail extends Component {
   state = {
     blog: false,
-    status_code: null
+    user: null,
+    category: null,
+    status_code: null,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { id } = this.props.match.params;
-
     if (id != null) {
-      fetch(process.env.REACT_APP_API_BASE_URL + `/blog/posts/${id}`)
-        .then(response => {
-          this.setState({status_code: response.status});
-          return response.json();
-        })
-        .then(result => {
+      try {
+        const blogResponse = await axiosInstance.get(`/blog/posts/${id}`);
+        const blogData = blogResponse.data;
+
+        const userResponse = await axiosInstance.get(`/auth/user/${blogData.author}`);
+        const userData = userResponse.data;
+
+        const catResponse = await axiosInstance.get(
+          `/blog/categories/${blogData.category}`
+        );
+        const catData = catResponse.data;
+
+        this.setState({
+          status_code: blogResponse.status,
+          blog: blogData,
+          user: userData,
+          category: catData,
+        });
+      } catch (error) {
+        if (error.response) {
           this.setState({
-            blog: result
+            status_code: error.response.status,
           });
-        })
+          if (error.response.status_code !== "404") {
+            throw error;
+          }
+        } else {
+          throw error;
+        }
+      }
     }
   }
 
-  renderPost(){
-    if (this.state.status_code != null && this.state.status_code !== 200){
-      return(<Redirect push to="/404" />);
-    }
-    return(<BlogPostContainer blog={this.state.blog}/>);
+  renderPost() {
+    return (
+      <BlogPostContainer
+        blog={this.state.blog}
+        user={this.state.user}
+        category={this.state.category}
+      />
+    );
+  }
 
-  };
-
-  renderPlaceholder(){
-    return(<BlogPostContainer />);
+  renderPlaceholder() {
+    return <BlogPostContainer />;
   }
 
   render() {
-      return(
+    console.log(this.state.blog)
+    if (this.state.status_code != null && this.state.status_code !== 200) {
+      return <Redirect push to="/404" />;
+    } else {
+      return (
         <Layout transparent={true} scroll={400}>
-          {this.state.blog ? this.renderPost() : this.renderPlaceholder()}
+          {this.state.blog && this.state.user && this.state.category ? this.renderPost() : this.renderPlaceholder()}
         </Layout>
       );
+    }
   }
 }
