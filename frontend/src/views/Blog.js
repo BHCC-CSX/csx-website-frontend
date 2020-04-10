@@ -6,8 +6,8 @@ import { Layout } from "./WrappedLayout";
 const renderCards = (blogs, users, categories) => {
     if (blogs != null) {
         return blogs.map((blog, index) => {
-            const user = users.find(usr => usr.id = blog.author);
-            const category = categories.find(cat => cat.id = blog.category);
+            const user = users.find(usr => usr.id === blog.author);
+            const category = categories.find(cat => cat.id === blog.category);
         return (
           <Col md={10} className="ml-auto mr-auto" key={blog.id}>
                 <BlogCard blog={blog} user={user} category={category}/>
