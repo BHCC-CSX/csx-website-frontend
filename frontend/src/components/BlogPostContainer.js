@@ -56,7 +56,7 @@ export default class BlogPostContainer extends Component {
             <Container>
               <Row>
                 <Col md={8} className="ml-auto mr-auto">
-                  <p>
+                  <p style={{  whiteSpace: "pre-line" }}>
                     {this.props.blog.content || <Skeleton count={10}/>}
                   </p>
                 </Col>
