@@ -18,6 +18,7 @@ const App = () => {
             <Route exact path="/projects" render={props => <Projects {...props} />} />
             <Route path="/projects/:id" render={props => <ProjectsDetail {...props} />} />
             <Route exact path="/blog" render={props => <Blog {...props} />} />
+            <Route path="/blog/categories/:id" render={props => <Blog {...props} />} />
             <Route path="/blog/posts/:id" render={props => <BlogDetail {...props} />} />
             <Route path="/login" render={props => <Login {...props} />} />
             <Route path="/404" render={props => <NotFound {...props} />} />
