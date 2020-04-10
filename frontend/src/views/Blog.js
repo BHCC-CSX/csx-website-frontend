@@ -34,21 +34,24 @@ const renderPlaceHolders = () => {
 };
 
 
-const Blog = () => {
+const Blog = (props) => {
 
     const [blogs, setBlogs] = useState([]);
     const [users, setUsers] = useState([]);
     const [categories, setCategories] = useState([]);
 
+    const { id } = props.match.params;
+
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_BASE_URL + "/blog/")
+        
+        fetch(process.env.REACT_APP_API_BASE_URL + "/blog/" + (id ? `categories/${id}/posts/` : ''))
             .then(res => {
                 return res.json();
             })
             .then(response => {
                 setBlogs(response);
             });
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         fetch(process.env.REACT_APP_API_BASE_URL + "/auth/users/")
@@ -74,7 +77,7 @@ const Blog = () => {
       <>
         <Layout transparent={false}>
           <Container style={{ paddingTop: "75px" }}>
-            <h2 className="title">Blog</h2>
+                    <h2 className="title">{id && categories && categories.length > 0 ? "Category: " + categories.find((cat) => id === String(cat.id)).name : "Blog"}</h2>
                     <Row>
               {blogs.length === 0
                 ? renderPlaceHolders()
