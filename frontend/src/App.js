@@ -20,7 +20,7 @@ const App = () => {
             <Route exact path="/blog" render={props => <Blog {...props} />} />
             <Route path="/blog/categories/:id" render={props => <Blog {...props} />} />
             <Route path="/blog/posts/:id" render={props => <BlogDetail {...props} />} />
-            <Route path="/login" render={props => <Login {...props} />} />
+            <Route exact path="/login" render={props => <Login {...props} />} />
             <Route path="/404" render={props => <NotFound {...props} />} />
             <Route render={props => <NotFound {...props} />} />
         </Switch>
