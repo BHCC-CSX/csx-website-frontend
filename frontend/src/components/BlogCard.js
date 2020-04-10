@@ -48,6 +48,7 @@ export default class BlogCard extends Component {
                 {content.length < 200
                   ? content
                   : content.substr(0, 199) + "... "}
+                <br></br>
                 <Link to={`/blog/posts/${id}`} style={{ color: "#444" }}>
                   Read More
                 </Link>
@@ -64,7 +65,7 @@ export default class BlogCard extends Component {
                 <Skeleton width="30%" />
               )}
               {this.props.category !== null ? (
-                <Link to="#" className="pull-right">
+                <Link to={`/blog/categories/${this.props.category.id}`} className="pull-right">
                   {this.props.category.name}
                 </Link>
               ) : (
