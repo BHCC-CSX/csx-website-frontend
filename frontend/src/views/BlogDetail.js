@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import BlogPostContainer from "../components/BlogPostContainer";
-import axios from "axios";
+import axiosInstance from "../axios";
 
 export default class BlogDetail extends Component {
   state = {
@@ -16,14 +16,14 @@ export default class BlogDetail extends Component {
     const { id } = this.props.match.params;
     if (id != null) {
       try {
-        const blogResponse = await axios.get(process.env.REACT_APP_API_BASE_URL + `/blog/posts/${id}/`);
+        const blogResponse = await axiosInstance.get(`/blog/posts/${id}/`);
         const blogData = blogResponse.data;
 
-        const userResponse = await axios.get(process.env.REACT_APP_API_BASE_URL + `/auth/user/${blogData.author}`);
+        const userResponse = await axiosInstance.get(`/auth/user/${blogData.author}`);
         const userData = userResponse.data;
 
-        const catResponse = await axios.get(
-          process.env.REACT_APP_API_BASE_URL + `/blog/categories/${blogData.category}`
+        const catResponse = await axiosInstance.get(
+          `/blog/categories/${blogData.category}`
         );
         const catData = catResponse.data;
 
@@ -63,7 +63,6 @@ export default class BlogDetail extends Component {
   }
 
   render() {
-    console.log(this.state.blog)
     if (this.state.status_code != null && this.state.status_code !== 200) {
       return <Redirect push to="/404" />;
     } else {
