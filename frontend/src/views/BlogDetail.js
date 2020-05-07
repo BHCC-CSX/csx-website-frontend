@@ -63,7 +63,6 @@ export default class BlogDetail extends Component {
   }
 
   render() {
-    console.log(this.state.blog)
     if (this.state.status_code != null && this.state.status_code !== 200) {
       return <Redirect push to="/404" />;
     } else {
