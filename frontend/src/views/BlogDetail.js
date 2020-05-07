@@ -16,7 +16,7 @@ export default class BlogDetail extends Component {
     const { id } = this.props.match.params;
     if (id != null) {
       try {
-        const blogResponse = await axiosInstance.get(`/blog/posts/${id}`);
+        const blogResponse = await axiosInstance.get(`/blog/posts/${id}/`);
         const blogData = blogResponse.data;
 
         const userResponse = await axiosInstance.get(`/auth/user/${blogData.author}`);
