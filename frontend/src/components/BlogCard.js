@@ -8,7 +8,7 @@ export default class BlogCard extends Component {
   static propTypes = {
     blog: PropTypes.shape({}),
     user: PropTypes.shape({}),
-    category: PropTypes.shape({}),
+    category: PropTypes.string,
   };
 
   static defaultProps = {
@@ -65,8 +65,8 @@ export default class BlogCard extends Component {
                 <Skeleton width="30%" />
               )}
               {this.props.category !== null ? (
-                <Link to={`/blog/categories/${this.props.category.id}`} className="pull-right">
-                  {this.props.category.name}
+                <Link to={`/blog/categories/${this.props.blog.category}`} className="pull-right">
+                  {this.props.category}
                 </Link>
               ) : (
                 <div className="pull-right">
