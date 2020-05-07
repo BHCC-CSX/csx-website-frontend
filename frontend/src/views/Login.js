@@ -14,10 +14,13 @@ import {
   Col,
 } from "reactstrap";
 import { Layout } from "./WrappedLayout";
+import axiosInstance from "../axios";
 
 const Login = (props) => {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
   React.useEffect(() => {
     document.body.classList.add("login-page");
     window.scrollTo(0, 0);
@@ -26,6 +29,25 @@ const Login = (props) => {
       document.body.classList.remove("login-page");
     };
   });
+
+  const handleUsernameChange = (event) => setUsername(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axiosInstance.post('auth/token/obtain/', {
+      username,
+      password
+    }).then(response => {
+      axiosInstance.defaults.headers['Authorization'] = "JWT " + response.data.access;
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+    }).catch(error => {
+      throw error;
+    });
+
+  }
 
   return (
     <>
@@ -64,10 +86,12 @@ const Login = (props) => {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          placeholder="Email"
+                          placeholder="Username"
                           type="text"
+                          value={username}
                           onFocus={() => setFirstFocus(true)}
                           onBlur={() => setFirstFocus(false)}
+                          onChange={handleUsernameChange}
                         ></Input>
                       </InputGroup>
                       <InputGroup
@@ -84,8 +108,10 @@ const Login = (props) => {
                         <Input
                           placeholder="Password"
                           type="password"
+                          value={password}
                           onFocus={() => setLastFocus(true)}
                           onBlur={() => setLastFocus(false)}
+                          onChange={handlePasswordChange}
                         ></Input>
                       </InputGroup>
                     </CardBody>
@@ -95,7 +121,7 @@ const Login = (props) => {
                         className="btn-round"
                         color="primary"
                         href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={handleSubmit}
                         size="lg"
                       >
                         Sign In
