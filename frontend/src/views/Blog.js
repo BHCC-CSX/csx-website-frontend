@@ -6,16 +6,14 @@ import { Layout } from "./WrappedLayout";
 const renderCards = (blogs, users, categories) => {
     if (blogs != null) {
         return blogs.map((blog, index) => {
-            const user = users.find(usr => usr.id === blog.author);
-            const category = categories.find(cat => cat.id === blog.category);
-        return (
-          <Col md={10} className="ml-auto mr-auto" key={blog.id}>
-                <BlogCard blog={blog} user={user} category={category}/>
-          </Col>
-        );
-      });
+            return (
+                <Col md={10} className="ml-auto mr-auto" key={blog.id}>
+                    <BlogCard blog={blog} user={users[blog.author]} category={categories[blog.category]}/>
+                </Col>
+            );
+        });
     } else {
-      return null;
+        return null;
     }
 };
 
@@ -54,30 +52,44 @@ const Blog = (props) => {
     }, [id]);
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_BASE_URL + "/auth/users/")
-            .then(res => {
-                return res.json();
-            })
-            .then(response => {
-                setUsers(response);
-            });
-    }, []);
+        fetch(process.env.REACT_APP_API_BASE_URL + "/auth/users/", {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(blogs.map((blog) => blog.author)),
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(response => {
+            setUsers(response);
+        });
+    }, [blogs]);
+
+
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_BASE_URL + "/blog/categories/")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/blog/categories/names/", {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(blogs.map((blog) => blog.category)),
+        })
             .then(res => {
                 return res.json();
             })
             .then(response => {
                 setCategories(response);
             });
-    }, []);
+    }, [blogs]);
 
     return (
       <>
         <Layout transparent={false}>
           <Container style={{ paddingTop: "75px" }}>
-                    <h2 className="title">{id && categories && categories.length > 0 ? "Category: " + categories.find((cat) => id === String(cat.id)).name : "Blog"}</h2>
+                    <h2 className="title">{categories && (id ? "Category: " + categories[id] : "Blog")}</h2>
                     <Row>
               {blogs.length === 0
                 ? renderPlaceHolders()
