@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import BlogPostContainer from "../components/BlogPostContainer";
-import axiosInstance from "../axios";
+import axios from "axios";
 
 export default class BlogDetail extends Component {
   state = {
@@ -16,14 +16,14 @@ export default class BlogDetail extends Component {
     const { id } = this.props.match.params;
     if (id != null) {
       try {
-        const blogResponse = await axiosInstance.get(`/blog/posts/${id}/`);
+        const blogResponse = await axios.get(process.env.REACT_APP_API_BASE_URL + `/blog/posts/${id}/`);
         const blogData = blogResponse.data;
 
-        const userResponse = await axiosInstance.get(`/auth/user/${blogData.author}`);
+        const userResponse = await axios.get(process.env.REACT_APP_API_BASE_URL + `/auth/user/${blogData.author}`);
         const userData = userResponse.data;
 
-        const catResponse = await axiosInstance.get(
-          `/blog/categories/${blogData.category}`
+        const catResponse = await axios.get(
+          process.env.REACT_APP_API_BASE_URL + `/blog/categories/${blogData.category}`
         );
         const catData = catResponse.data;
 
