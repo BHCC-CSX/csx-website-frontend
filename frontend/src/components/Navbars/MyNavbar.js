@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withContext } from "../../AppContext";
 
 import {
   Collapse,
@@ -109,6 +110,11 @@ const MyNavbar = props => {
                   Sign Up
                 </NavLink>
               </NavItem>
+              <NavItem className="pt-1" active={window.location.pathname.includes('/logout')}>
+                <NavLink onClick={props.logout} to="/" tag={Link}>
+                  Log Out
+                </NavLink>
+              </NavItem>
               <NavItem className="pt-1">
                 <NavLink
                   href="https://discordapp.com/invite/76xbjPA"
@@ -147,4 +153,4 @@ const MyNavbar = props => {
   );
 };
 
-export default MyNavbar;
+export default withContext(MyNavbar);
