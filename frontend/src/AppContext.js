@@ -18,8 +18,8 @@ export class AppContextProvider extends Component {
     constructor() {
         super()
         this.state = {
-            user: {},
-            token: ""
+            user: JSON.parse(localStorage.getItem("user")) || {},
+            token: localStorage.getItem("token") || ""
         }
     }
 
@@ -27,11 +27,14 @@ export class AppContextProvider extends Component {
         return axios.post(process.env.REACT_APP_API_BASE_URL + '/auth/user/', userInfo)
             .then(response => {
                 const { token } = response.data
-                const user = getUserFromToken(token)
+                localStorage.setItem("token", token)
                 this.setState({ token })
+
+                const user = getUserFromToken(token)
                 return axios.get(process.env.REACT_APP_API_BASE_URL + `/auth/user/${user.id}/`)
             }).then(response => {
                 const { user } = response.data
+                localStorage.setItem("user", JSON.stringify(user));
                 this.setState({ user })
                 return response
             })
