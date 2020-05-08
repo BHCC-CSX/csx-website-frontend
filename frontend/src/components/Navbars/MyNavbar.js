@@ -104,6 +104,11 @@ const MyNavbar = props => {
                   Sign In
                 </NavLink>
               </NavItem>
+              <NavItem className="pt-1" active={window.location.pathname.includes('/signup')}>
+                <NavLink to="/signup" tag={Link}>
+                  Sign Up
+                </NavLink>
+              </NavItem>
               <NavItem className="pt-1">
                 <NavLink
                   href="https://discordapp.com/invite/76xbjPA"
