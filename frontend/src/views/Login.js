@@ -14,17 +14,16 @@ import {
   Col,
 } from "reactstrap";
 import { Layout } from "./WrappedLayout";
-import axiosInstance from "../axios";
+import { withContext } from "../AppContext";
 
 const Login = (props) => {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+
   React.useEffect(() => {
     document.body.classList.add("login-page");
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
     return function cleanup() {
       document.body.classList.remove("login-page");
     };
@@ -36,17 +35,12 @@ const Login = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axiosInstance.post('auth/token/obtain/', {
-      username,
-      password
-    }).then(response => {
-      axiosInstance.defaults.headers['Authorization'] = "JWT " + response.data.access;
-      localStorage.setItem('access_token', response.data.access);
-      localStorage.setItem('refresh_token', response.data.refresh);
-    }).catch(error => {
-      throw error;
-    });
-
+    const credentials = {
+      username: username,
+      password: password
+    }
+    props.login(credentials)
+      .then(() => props.history.push("/"))
   }
 
   return (
@@ -149,4 +143,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withContext(Login);
