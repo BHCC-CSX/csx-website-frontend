@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import { Form, FormGroup, Input, Button, Container, FormText } from "reactstrap";
 import { withContext } from "../AppContext";
@@ -13,7 +12,7 @@ const BlogForm = (props) => {
 
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
-    const [category, setCategory] = React.useState("");
+    const [category, setCategory] = React.useState("1");
     const [image, setImage] = React.useState(null);
 
     const handleTitleChange = (event) => setTitle(event.target.value);
@@ -50,53 +49,53 @@ const BlogForm = (props) => {
             author: props.user_id,
             image: image
         }
-
+                
         if (props.match.params.id) {
             props.editPost(props.match.params.id, post)
-                // redirecting directly to blog detail page is not working
-                // probably the model hasn't been updated or created by the time we get there
-                //.then(props.history.push(`/blog/posts/${props.match.params.id}`))
-                .then(props.history.push("/profile"))
+                .then(setTimeout(() => props.history.push(`/blog/posts/${props.match.params.id}`), 700))
         } else {
             props.addPost(post)
-                //.then(props.history.push(`/blog/posts/${props.match.params.id}`))
-                .then(props.history.push("/profile"))
+                .then(response => {
+                    setTimeout(() => props.history.push(`/blog/posts/${response.data.id}`), 700)
+                })
         }
     }
 
     return (
         <Layout>
             <Container style={{ paddingTop: "75px" }}>
-                <FormGroup className="col-md">
-                    <label htmlFor="inputTitle">Title</label>
-                    <Input id="inputTitle" placeholder="Title" type="text" value={title} onChange={handleTitleChange}></Input>
-                </FormGroup>
-                <FormGroup className="col-md">
-                    <label htmlFor="inputContent">Content</label>
-                    <Input id="inputContent" placeholder="Content" rows="10" type="textarea" style={{ maxHeight: "500px" }} value={content} onChange={handleContentChange}></Input>
-                </FormGroup>
-                <FormGroup className="col-md-4">
-                    <label htmlFor="inputCategory">Category</label>
-                    <Input id="inputCategory" type="select" value={category} onChange={handleCategoryChange}>
-                        {categories.map((cat, key) => {
-                            const selectedTag = props.blog && cat.id === category ? "selected=\"\"" : ""
-                            return (
-                                <option key={key} {...selectedTag} value={cat.id}>{cat.name}</option>
-                            )
-                        })}
-                    </Input>
-                </FormGroup>
-                <div className="col-md">
-                <label htmlFor="inputImage">Image</label>
-                <Input id="inputImage" type="file" accept="image/png, image/jpeg" onChange={handleImageChange}>
-                </Input>
-                <FormText color="muted">Please upload an image in png or jpeg format.</FormText>
-                </div>
-                <div className="col-md">
-                <Button color="primary" type="submit" onClick={handleSubmit}>
-                    Submit
-                </Button>
-                </div>
+                <Form action="" className="form" method="">
+                    <FormGroup className="col-md">
+                        <label htmlFor="inputTitle">Title</label>
+                        <Input id="inputTitle" placeholder="Title" type="text" value={title} onChange={handleTitleChange}></Input>
+                    </FormGroup>
+                    <FormGroup className="col-md">
+                        <label htmlFor="inputContent">Content</label>
+                        <Input id="inputContent" placeholder="Content" rows="10" type="textarea" style={{ maxHeight: "500px" }} value={content} onChange={handleContentChange}></Input>
+                    </FormGroup>
+                    <FormGroup className="col-md-4">
+                        <label htmlFor="inputCategory">Category</label>
+                        <Input id="inputCategory" type="select" value={category} onChange={handleCategoryChange}>
+                            {categories.map((cat, key) => {
+                                const selectedTag = props.blog && cat.id === category ? "selected=\"\"" : ""
+                                return (
+                                    <option key={key} {...selectedTag} value={cat.id}>{cat.name}</option>
+                                )
+                            })}
+                        </Input>
+                    </FormGroup>
+                    <div className="col-md">
+                        <label htmlFor="inputImage">Image</label>
+                        <Input id="inputImage" type="file" accept="image/png, image/jpeg" onChange={handleImageChange}>
+                        </Input>
+                        <FormText color="muted">Please upload an image in png or jpeg format.</FormText>
+                    </div>
+                    <div className="col-md">
+                        <Button color="primary" type="submit" onClick={handleSubmit}>
+                            Submit
+                        </Button>
+                    </div>
+                </Form>
             </Container>
         </Layout>
     )
