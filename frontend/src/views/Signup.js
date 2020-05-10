@@ -169,6 +169,11 @@ const Signup = (props) => {
                           onChange={handleConfirmPasswordChange}
                         ></Input>
                       </InputGroup>
+
+                      {
+                        errorMsg &&
+                        <h6 style={{ color: "red", whiteSpace: "pre-line" }}>{errorMsg}</h6>
+                      }
                     </CardBody>
                     <CardFooter className="text-center">
                       <Button
