@@ -100,21 +100,35 @@ const MyNavbar = props => {
                   Blog
                 </NavLink>
               </NavItem>
-              <NavItem className="pt-1" active={window.location.pathname.includes('/login')}>
-                <NavLink to="/login" tag={Link}>
-                  Sign In
-                </NavLink>
-              </NavItem>
-              <NavItem className="pt-1" active={window.location.pathname.includes('/signup')}>
-                <NavLink to="/signup" tag={Link}>
-                  Sign Up
-                </NavLink>
-              </NavItem>
-              <NavItem className="pt-1" active={window.location.pathname.includes('/logout')}>
-                <NavLink onClick={props.logout} to="/" tag={Link}>
-                  Log Out
-                </NavLink>
-              </NavItem>
+
+              {
+                !props.access_token ?
+                  <React.Fragment>
+                    <NavItem className="pt-1" active={window.location.pathname.includes('/login')}>
+                      <NavLink to="/login" tag={Link}>
+                        Sign In
+                      </NavLink>
+                    </NavItem>
+                    <NavItem className="pt-1" active={window.location.pathname.includes('/signup')}>
+                      <NavLink to="/signup" tag={Link}>
+                        Sign Up
+                      </NavLink>
+                    </NavItem>
+                  </React.Fragment>
+                :
+                  <React.Fragment>
+                    <NavItem className="pt-1" active={window.location.pathname.includes('/profile')}>
+                      <NavLink to="/profile" tag={Link}>
+                        Profile
+                      </NavLink>
+                    </NavItem>
+                    <NavItem className="pt-1" active={window.location.pathname.includes('/logout')}>
+                      <NavLink onClick={props.logout} to="/" tag={Link}>
+                        Log Out
+                      </NavLink>
+                    </NavItem>
+                  </React.Fragment>
+              }
               <NavItem className="pt-1">
                 <NavLink
                   href="https://discordapp.com/invite/76xbjPA"
