@@ -51,6 +51,15 @@ export class AppContextProvider extends Component {
                 return response
             })
     }
+    addPost = (newPost) => {
+        return axiosInstance.post("/blog/posts/", newPost)
+            .then(response => {
+                this.setState(prevState => {
+                    return { posts: [...prevState.posts, response.data]}
+                })
+                return response
+            })
+    }
                 return response
             })
     }
