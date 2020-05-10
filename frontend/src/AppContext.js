@@ -5,17 +5,6 @@ import jwtDecode from "jwt-decode";
 
 const AppContext = React.createContext();
 
-const decryptToken = token => {
-    if (token) {
-        try {
-            return JSON.parse(atob(token.split('.')[1]));
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    return null;
-}
-
 export class AppContextProvider extends Component {
 
     constructor() {
@@ -105,17 +94,15 @@ export class AppContextProvider extends Component {
     }
 
     isAuthenticated = () => {
-
         if (this.state.access_token && this.state.access_token !== "" ) {
             var decodedToken = jwtDecode(this.state.access_token)
-
             if (Date.now() < decodedToken.exp * 1000) {
                 return true
             } else {
                 axios.post(process.env.REACT_APP_API_BASE_URL + '/auth/token/refresh/', { refresh: this.state.refresh_token })
                     .then(response => {
                         const { access, refresh } = response.data
-                        const user_id = decryptToken(access).user_id
+                        const user_id = jwtDecode(access).user_id
 
                         localStorage.setItem("access_token", access)
                         localStorage.setItem("refresh_token", refresh)
@@ -142,7 +129,7 @@ export class AppContextProvider extends Component {
         return axiosInstance.post('/auth/user/', userInfo)
             .then(response => {
                 const { access, refresh } = response.data
-                const user_id = decryptToken(access).user_id
+                const user_id = jwtDecode(access).user_id
 
                 localStorage.setItem("access_token", access)
                 localStorage.setItem("refresh_token", refresh)
@@ -163,7 +150,7 @@ export class AppContextProvider extends Component {
         return axiosInstance.post('/auth/token/obtain/', credentials)
             .then(response => {
                 const { access, refresh } = response.data
-                const user_id = decryptToken(access).user_id
+                const user_id = jwtDecode(access).user_id
 
                 localStorage.setItem("access_token", access)
                 localStorage.setItem("refresh_token", refresh)
