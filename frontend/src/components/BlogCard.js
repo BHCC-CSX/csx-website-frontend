@@ -4,18 +4,10 @@ import Skeleton from "react-loading-skeleton";
 import { Row, Card, CardImg } from "reactstrap";
 import { Link } from "react-router-dom";
 
-export default class BlogCard extends Component {
-  static propTypes = {
-    blog: PropTypes.shape({}),
-    user: PropTypes.shape({}),
-    category: PropTypes.string,
-  };
+const BlogCard = (props) => {
+  const { id, title, image, content } = props.blog;
 
-  static defaultProps = {
-    blog: {},
-    user: null,
-    category: null,
-  };
+  const [modalLive, setModalLive] = React.useState(false);
 
   render() {
     const { id, title, image, content } = this.props.blog;
