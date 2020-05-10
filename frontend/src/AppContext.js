@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import axiosInstance from "./axios.js";
+import jwtDecode from "jwt-decode";
 
 const AppContext = React.createContext();
 
@@ -35,14 +37,15 @@ export class AppContextProvider extends Component {
         try {
             axiosInstance.get(`/auth/user/${this.state.user_id}/`)
                 .then(response => {
-                const user = response.data
-                localStorage.setItem("user", JSON.stringify(user));
-                this.setState({ user })
+                    const user = response.data
+                    localStorage.setItem("user", JSON.stringify(user));
+                    this.setState({ user })
                 })
         } catch (err) {
             console.log(err)
         }
     }
+    
     getPosts = () => {
         return axiosInstance.get("/blog/")
             .then(response => {
@@ -134,6 +137,7 @@ export class AppContextProvider extends Component {
 
         return false
     }
+
     signup = (userInfo) => {
         return axiosInstance.post('/auth/user/', userInfo)
             .then(response => {
@@ -190,21 +194,6 @@ export class AppContextProvider extends Component {
             refresh_token: ""
         })
     }
-
-    // axiosInstance.post('auth/token/obtain/', {
-    //     username,
-    //     password
-    //   }).then(response => {
-    //     if (response.data.error !== 1) {
-    //       axiosInstance.defaults.headers['Authorization'] = "JWT " + response.data.access_token;
-    //       localStorage.setItem('access_token_token', response.data.access_token);
-    //       localStorage.setItem('refresh_token_token', response.data.refresh_token);
-    //     } else {
-    //       Alert.alert(JSON.stringify(response))
-    //     }
-    //   }).catch(error => {
-    //     console.log(error);
-    //   });
     
     render() {
         return (
