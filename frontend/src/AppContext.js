@@ -43,6 +43,14 @@ export class AppContextProvider extends Component {
             console.log(err)
         }
     }
+    getPosts = () => {
+        return axiosInstance.get("/blog/")
+            .then(response => {
+                const userPosts = response.data.filter(blog => blog.author === this.state.user_id)
+                this.setState({ posts: userPosts })
+                return response
+            })
+    }
                 return response
             })
     }
