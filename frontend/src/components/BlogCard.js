@@ -9,8 +9,13 @@ const BlogCard = (props) => {
 
   const [modalLive, setModalLive] = React.useState(false);
 
-  render() {
-    const { id, title, image, content } = this.props.blog;
+  const handleDelete = (id) => {
+    // this has to use the axiosInstance
+    props.deletePost(id)
+    setModalLive(false)
+    window.location.reload()
+  }
+
     return (
       <Card className="card-plain">
         <Row>
@@ -69,6 +74,44 @@ const BlogCard = (props) => {
           </div>
         </Row>
       </Card>
+        
+        <Modal className="modal-sm" toggle={() => setModalLive(false)} isOpen={modalLive}>
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLiveLabel">
+              Delete Post
+            </h5>
+            <button
+              aria-label="Close"
+              className="close"
+              type="button"
+              onClick={() => setModalLive(false)}
+            >
+              <span aria-hidden={true}>×</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <p>Are you sure you want to delete this post?</p>
+          </div>
+          <div className="modal-footer">
+            <Button
+              color="secondary"
+              type="button"
+              onClick={() => setModalLive(false)}
+            >
+              Close
+            </Button>
+            <Button
+              color="primary"
+              type="button"
+              onClick={() => handleDelete(props.blog.id)}
+            >
+              Delete
+            </Button>
+          </div>
+
+
+        </Modal>
+      </>
     );
   }
 }
