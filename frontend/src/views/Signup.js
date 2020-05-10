@@ -186,6 +186,11 @@ const Signup = (props) => {
                       >
                         Sign Up
                       </Button>
+                      <div className="pull-left">
+                        <h6>
+                          <Link to="/login" className="link">Already have an account?</Link>
+                        </h6>
+                      </div>
                     </CardFooter>
                   </Form>
                 </Card>
