@@ -47,7 +47,22 @@ const Signup = (props) => {
       confirm_password: confirmPassword
     }
     props.signup(newUser)
+      .then(() => clearInputs())
       .then(() => props.history.push("/"))
+      .catch(err => {
+        var errorString = ""
+
+        if (err.response.data.non_field_errors) {
+          err.response.data.non_field_errors.forEach(error => {
+            errorString += error + '\n'
+          })
+        } else if (err.response.data) {
+          for (const field in err.response.data) {
+            errorString += `${field[0].toUpperCase() + field.slice(1)} Error: ${err.response.data[field]}\n`
+          }
+        }
+        setErrorMsg(errorString)
+      })
   }
 
   return (
