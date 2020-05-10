@@ -100,6 +100,40 @@ export class AppContextProvider extends Component {
                 return response
             })
     }
+
+    isAuthenticated = () => {
+
+        if (this.state.access_token && this.state.access_token !== "" ) {
+            var decodedToken = jwtDecode(this.state.access_token)
+
+            if (Date.now() < decodedToken.exp * 1000) {
+                return true
+            } else {
+                axios.post(process.env.REACT_APP_API_BASE_URL + '/auth/token/refresh/', { refresh: this.state.refresh_token })
+                    .then(response => {
+                        const { access, refresh } = response.data
+                        const user_id = decryptToken(access).user_id
+
+                        localStorage.setItem("access_token", access)
+                        localStorage.setItem("refresh_token", refresh)
+                        localStorage.setItem("user_id", user_id)
+
+                        this.setState({
+                            access_token: access,
+                            refresh_token: refresh,
+                            user_id
+                        })
+                        
+                        this.getUser()
+                        this.getPosts()
+                        return response
+                    })
+                return true
+            }
+        }
+
+        return false
+    }
                 return response
             })
     }
