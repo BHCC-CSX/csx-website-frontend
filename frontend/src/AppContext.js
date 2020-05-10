@@ -178,10 +178,13 @@ export class AppContextProvider extends Component {
     }
 
     logout = () => {
+        localStorage.removeItem("user_id")
         localStorage.removeItem("user")
         localStorage.removeItem("access_token")
         localStorage.removeItem("refresh_token")
         this.setState({
+            posts: [],
+            user_id: "",
             user: {},
             access_token: "",
             refresh_token: ""
