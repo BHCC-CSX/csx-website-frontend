@@ -114,4 +114,18 @@ const BlogCard = (props) => {
       </>
     );
   }
-}
+BlogCard.propTypes = {
+  editable: PropTypes.bool,
+  blog: PropTypes.shape({}),
+  user: PropTypes.shape({}),
+  category: PropTypes.string,
+};
+
+BlogCard.defaultProps = {
+  editable: false,
+  blog: {},
+  user: null,
+  category: null,
+};
+
+export default withContext(BlogCard);
