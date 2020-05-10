@@ -54,16 +54,16 @@ const BlogCard = (props) => {
               <Skeleton count={5} />
             )}
             <div>
-              {this.props.user !== null ? (
+              {props.user !== null ? (
                 <span>
-                  {this.props.user.first_name + " " + this.props.user.last_name}
+                  {props.user.first_name + " " + props.user.last_name}
                 </span>
               ) : (
                 <Skeleton width="30%" />
               )}
-              {this.props.category !== null ? (
-                <Link to={`/blog/categories/${this.props.blog.category}`} className="pull-right">
-                  {this.props.category}
+              {props.category !== null ? (
+                <Link to={`/blog/categories/${props.blog.category}`} className="pull-right">
+                  {props.category}
                 </Link>
               ) : (
                 <div className="pull-right">
