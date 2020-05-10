@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
-import { Row, Card, CardImg } from "reactstrap";
+import { Row, Card, CardImg, Button, Modal } from "reactstrap";
 import { Link } from "react-router-dom";
+import { withContext } from "../AppContext";
 
 const BlogCard = (props) => {
   const { id, title, image, content } = props.blog;
@@ -17,6 +18,7 @@ const BlogCard = (props) => {
   }
 
     return (
+      <>
       <Card className="card-plain">
         <Row>
           <div className="col-md-4">
@@ -97,7 +99,7 @@ const BlogCard = (props) => {
             }
           </div>
         </Row>
-      </Card>
+        </Card>
         
         <Modal className="modal-sm" toggle={() => setModalLive(false)} isOpen={modalLive}>
           <div className="modal-header">
@@ -137,7 +139,8 @@ const BlogCard = (props) => {
         </Modal>
       </>
     );
-  }
+}
+
 BlogCard.propTypes = {
   editable: PropTypes.bool,
   blog: PropTypes.shape({}),
