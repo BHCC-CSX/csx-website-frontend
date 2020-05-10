@@ -51,12 +51,39 @@ export class AppContextProvider extends Component {
                 return response
             })
     }
+
     addPost = (newPost) => {
         return axiosInstance.post("/blog/posts/", newPost)
             .then(response => {
                 this.setState(prevState => {
                     return { posts: [...prevState.posts, response.data]}
                 })
+                return response
+            })
+    }
+
+    editPost = (postID, newPost) => {
+        return axiosInstance.patch(`/blog/posts/${postID}/`, newPost)
+            .then((response) => {
+                console.log(newPost.image)
+                axiosInstance.post(`/blog/posts/${postID}/image/`, newPost.image, {
+                    'content-type': 'image/jpeg'
+                })
+                    .then(res => {
+                        console.log(res)
+                    })
+                return response
+            })
+            .then(response => {
+                axiosInstance.get(`/blog/posts/${postID}/`)
+                    .then(response => {
+                        this.setState(prevState => {
+                            const updatedPosts = prevState.posts.map(post => {
+                                return post.id === response.data.id ? response.data : post
+                            })
+                            return { posts: updatedPosts }
+                        })
+                    })
                 return response
             })
     }
