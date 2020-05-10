@@ -134,6 +134,23 @@ export class AppContextProvider extends Component {
 
         return false
     }
+    signup = (userInfo) => {
+        return axiosInstance.post('/auth/user/', userInfo)
+            .then(response => {
+                const { access, refresh } = response.data
+                const user_id = decryptToken(access).user_id
+
+                localStorage.setItem("access_token", access)
+                localStorage.setItem("refresh_token", refresh)
+                localStorage.setItem("user_id", user_id)
+
+                this.setState({
+                    access_token: access,
+                    refresh_token: refresh,
+                    user_id
+                })
+        
+                this.getUser()
                 return response
             })
     }
