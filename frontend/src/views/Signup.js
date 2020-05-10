@@ -11,6 +11,7 @@ import {
   Container,
   Col,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import { withContext } from "../AppContext";
 
@@ -22,6 +23,7 @@ const Signup = (props) => {
   const [lastName, setLastName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   React.useEffect(() => {
     document.body.classList.add("login-page");
@@ -36,6 +38,15 @@ const Signup = (props) => {
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleConfirmPasswordChange = (event) => setConfirmPassword(event.target.value);
 
+  const clearInputs = () => {
+    setUsername("")
+    setFirstName("")
+    setLastName("")
+    setPassword("")
+    setConfirmPassword("")
+    setErrorMsg("")
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -46,6 +57,7 @@ const Signup = (props) => {
       password: password,
       confirm_password: confirmPassword
     }
+
     props.signup(newUser)
       .then(() => clearInputs())
       .then(() => props.history.push("/"))
