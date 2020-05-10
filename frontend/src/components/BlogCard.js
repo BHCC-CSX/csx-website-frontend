@@ -71,6 +71,30 @@ const BlogCard = (props) => {
                 </div>
               )}
             </div>
+            {
+              props.editable && 
+              (
+                <div>
+                  <Button
+                        className="btn-round ml-2 pull-right"
+                        color="primary"
+                        onClick={() => setModalLive(true)}
+                        size="sm"
+                      >
+                    Delete
+                  </Button>
+                  <Button
+                        className="btn-round ml-2 pull-right"
+                        color="primary"
+                        tag={Link}
+                        to={`/blog/edit/${id}`}
+                        size="sm"
+                      >
+                    Edit
+                  </Button>
+                </div>
+              )
+            }
           </div>
         </Row>
       </Card>
