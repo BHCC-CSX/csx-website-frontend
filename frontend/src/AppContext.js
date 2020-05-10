@@ -19,6 +19,8 @@ export class AppContextProvider extends Component {
     constructor() {
         super()
         this.state = {
+            posts: [],
+            user_id: JSON.parse(localStorage.getItem("user_id")) || "",
             user: JSON.parse(localStorage.getItem("user")) || {},
             access_token: localStorage.getItem("access_token") || "",
             refresh_token: localStorage.getItem("refresh_token") || "",
