@@ -213,6 +213,12 @@ export class AppContextProvider extends Component {
                     signup: this.signup,
                     login: this.login,
                     logout: this.logout,
+                    isAuthenticated: this.isAuthenticated,
+                    getPosts: this.getPosts,
+                    editPost: this.editPost,
+                    addPost: this.addPost,
+                    deletePost: this.deletePost,
+                    uploadImage: this.uploadImage,
                     ...this.state
                 }}
             >
