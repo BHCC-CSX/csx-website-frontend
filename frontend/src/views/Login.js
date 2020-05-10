@@ -13,6 +13,7 @@ import {
   Container,
   Col,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import { withContext } from "../AppContext";
 
@@ -21,6 +22,7 @@ const Login = (props) => {
   const [lastFocus, setLastFocus] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   React.useEffect(() => {
     document.body.classList.add("login-page");
@@ -32,6 +34,12 @@ const Login = (props) => {
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
+  const clearInputs = () => {
+    setUsername("")
+    setPassword("")
+    setErrorMsg("")
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -40,7 +48,22 @@ const Login = (props) => {
       password: password
     }
     props.login(credentials)
+      .then(() => clearInputs())
       .then(() => props.history.push("/"))
+      .catch(err => {
+        var errorString = ""
+
+        if (err.response.data.non_field_errors) {
+          err.response.data.non_field_errors.forEach(error => {
+            errorString += error + '\n'
+          })
+        } else if (err.response.data) {
+          for (const field in err.response.data) {
+            errorString += `${field[0].toUpperCase() + field.slice(1)} Error: ${err.response.data[field]}\n`
+          }
+        }
+        setErrorMsg(errorString)
+      })
   }
 
   return (
@@ -108,6 +131,10 @@ const Login = (props) => {
                           onChange={handlePasswordChange}
                         ></Input>
                       </InputGroup>
+                      {
+                        errorMsg &&
+                        <h6 style={{ color: "red", whiteSpace: "pre-line" }}>{errorMsg}</h6>
+                      }
                     </CardBody>
                     <CardFooter className="text-center">
                       <Button
@@ -122,13 +149,7 @@ const Login = (props) => {
                       </Button>
                       <div className="pull-left">
                         <h6>
-                          <a
-                            className="link"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Create Account
-                          </a>
+                          <Link to="/signup" className="link">Create Account</Link>
                         </h6>
                       </div>
                     </CardFooter>
