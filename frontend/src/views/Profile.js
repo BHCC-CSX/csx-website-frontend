@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import { withContext } from "../AppContext";
 import { Layout } from "./WrappedLayout";
@@ -55,8 +56,25 @@ const Profile = (props) => {
       <>
         <Layout transparent={false}>
             <Container style={{ paddingTop: "75px" }}>
-                {renderProfile(props)}
+                    {renderProfile(props)}
                     <Row>
+                        <Container>
+                            <Col md={10} className="ml-auto mr-auto">
+                                <h3>{props.posts.length} Posts</h3>
+                                <Button
+                                    className="btn-round pull-right"
+                                    color="primary"
+                                    tag={Link}
+                                    to="/blog/create/"
+                                    size="lg"
+                                >
+                                    Create New Post
+                                </Button>
+                            </Col>
+                        </Container>
+                    </Row>
+                    <Row>
+
                         {
                         props.posts.length === 0 || categories.length === 0 ?
                         renderPlaceHolders() :
