@@ -87,6 +87,19 @@ export class AppContextProvider extends Component {
                 return response
             })
     }
+
+    deletePost = (id) => {
+        return axiosInstance.delete(`/blog/posts/${id}/`)
+            .then(response => {
+                this.setState(prevState => {
+                    const updatedPosts = prevState.posts.filter(post => {
+                        return post.id !== id
+                    })
+                    return { posts: updatedPosts }
+                })
+                return response
+            })
+    }
                 return response
             })
     }
