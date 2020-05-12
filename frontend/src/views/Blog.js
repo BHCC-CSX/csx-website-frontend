@@ -7,9 +7,7 @@ const renderCards = (blogs, users, categories) => {
     if (blogs != null) {
         return blogs.map((blog, index) => {
             return (
-                <Col md={10} className="ml-auto mr-auto" key={blog.id}>
-                    <BlogCard blog={blog} user={users[blog.author]} category={categories[blog.category]}/>
-                </Col>
+                <BlogCard blog={blog} user={users[blog.author]} category={categories[blog.category]}/>
             );
         });
     } else {
@@ -23,9 +21,7 @@ const renderPlaceHolders = () => {
             {Array(2)
                 .fill()
                 .map((item, index) => (
-                    <Col md={10} className="ml-auto mr-auto" key={index}>
                         <BlogCard />
-                    </Col>
                 ))}
         </React.Fragment>
     );
@@ -89,13 +85,15 @@ const Blog = (props) => {
       <>
         <Layout transparent={false}>
           <Container style={{ paddingTop: "75px" }}>
-                    <h2 className="title">{categories && (id ? "Category: " + categories[id] : "Blog")}</h2>
-                    <Row>
-              {blogs.length === 0
-                ? renderPlaceHolders()
-                : renderCards(blogs, users, categories)}
-            </Row>
-          </Container>
+                <h2 className="title">{categories && (id ? "Category: " + categories[id] : "Blog")}</h2>
+                <Row>
+                    <Col md={10} className="ml-auto mr-auto">
+                        {blogs.length === 0
+                        ? renderPlaceHolders()
+                        : renderCards(blogs, users, categories)}
+                    </Col>
+                </Row>
+            </Container>
         </Layout>
       </>
     );
