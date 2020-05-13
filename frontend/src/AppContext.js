@@ -44,40 +44,50 @@ export class AppContextProvider extends Component {
             })
     }
 
-    addPost = (newPost) => {
-        return axiosInstance.post("/blog/posts/", newPost)
-            .then(response => {
-                this.setState(prevState => {
-                    return { posts: [...prevState.posts, response.data]}
-                })
-                return response
-            })
+    addPost = async (newPost) => {
+
+        let formdata = new FormData();
+        formdata.append('image', newPost.image, newPost.image.name)
+
+        const res = await axiosInstance.post('/blog/posts/', newPost)
+
+        await axiosInstance.post(`/blog/posts/${res.data.id}/image/`,
+            formdata,
+            { headers: { 'Content-Type': 'multipart/form-data' } })
+
+        const response = await axiosInstance.get(`/blog/posts/${res.data.id}/`);
+        
+        this.setState(prevState => {
+            return { posts: [...prevState.posts, response.data] }
+        })
+        
+        return response
     }
 
-    editPost = (postID, newPost) => {
-        return axiosInstance.patch(`/blog/posts/${postID}/`, newPost)
-            .then((response) => {
-                console.log(newPost.image)
-                axiosInstance.post(`/blog/posts/${postID}/image/`, newPost.image, {
-                    'content-type': 'image/jpeg'
-                })
-                    .then(res => {
-                        console.log(res)
-                    })
-                return response
+    editPost = async (postID, newPost) => {
+
+        let formdata = new FormData();
+        formdata.append('image', newPost.image, newPost.image.name)
+
+        await Promise.all([
+            axiosInstance.patch(`/blog/posts/${postID}/`, newPost),
+            axiosInstance.post(`/blog/posts/${postID}/image/`,
+                formdata, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
-            .then(response => {
-                axiosInstance.get(`/blog/posts/${postID}/`)
-                    .then(response => {
-                        this.setState(prevState => {
-                            const updatedPosts = prevState.posts.map(post => {
-                                return post.id === response.data.id ? response.data : post
-                            })
-                            return { posts: updatedPosts }
-                        })
-                    })
-                return response
+        ])
+
+        const response = await axiosInstance.get(`/blog/posts/${postID}/`);
+        
+        this.setState(prevState => {
+            const updatedPosts = prevState.posts.map(post => {
+                return post.id === response.data.id ? response.data : post
             })
+            return { posts: updatedPosts }
+        })
+
     }
 
     deletePost = (id) => {
