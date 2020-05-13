@@ -204,7 +204,6 @@ export class AppContextProvider extends Component {
                     editPost: this.editPost,
                     addPost: this.addPost,
                     deletePost: this.deletePost,
-                    uploadImage: this.uploadImage,
                     ...this.state
                 }}
             >
