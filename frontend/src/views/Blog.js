@@ -7,7 +7,7 @@ const renderCards = (blogs, users, categories) => {
     if (blogs != null) {
         return blogs.map((blog, index) => {
             return (
-                <BlogCard blog={blog} user={users[blog.author]} category={categories[blog.category]}/>
+                <BlogCard key={index} blog={blog} user={users[blog.author]} category={categories[blog.category]}/>
             );
         });
     } else {
@@ -21,7 +21,7 @@ const renderPlaceHolders = () => {
             {Array(2)
                 .fill()
                 .map((item, index) => (
-                        <BlogCard />
+                    <BlogCard key={index} />
                 ))}
         </React.Fragment>
     );
