@@ -5,8 +5,8 @@ import { Form, FormGroup, Input, Button, Container, FormText } from "reactstrap"
 import { withContext } from "../AppContext";
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import axios from "axios";
 import imageCompression from "browser-image-compression";
+import { axiosUnauth } from "../axios";
 
 const BlogForm = (props) => {
     // look for blog in posts prop
@@ -37,7 +37,7 @@ const BlogForm = (props) => {
     }, [blog])
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_BASE_URL + "/blog/categories/")
+        axiosUnauth.get("/blog/categories/")
             .then(response => {
                 setCategories(response.data)
                 return response

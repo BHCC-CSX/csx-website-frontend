@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-import axiosInstance from "./axios.js";
+import { axiosUnauth } from "./axios.js";
+import { axiosAuth } from "./axios.js";
 import jwtDecode from "jwt-decode";
 
 const AppContext = React.createContext();
@@ -24,7 +24,7 @@ export class AppContextProvider extends Component {
 
     getUser = () => {
         try {
-            axiosInstance.get(`/auth/user/${this.state.user_id}/`)
+            axiosAuth.get(`/auth/user/${this.state.user_id}/`)
                 .then(response => {
                     const user = response.data
                     localStorage.setItem("user", JSON.stringify(user));
@@ -36,7 +36,7 @@ export class AppContextProvider extends Component {
     }
     
     getPosts = () => {
-        return axiosInstance.get("/blog/")
+        return axiosAuth.get("/blog/")
             .then(response => {
                 const userPosts = response.data.filter(blog => blog.author === this.state.user_id)
                 this.setState({ posts: userPosts })
@@ -49,13 +49,13 @@ export class AppContextProvider extends Component {
         let formdata = new FormData();
         formdata.append('image', newPost.image, newPost.image.name)
 
-        const res = await axiosInstance.post('/blog/posts/', newPost)
+        const res = await axiosAuth.post('/blog/posts/', newPost)
 
-        await axiosInstance.post(`/blog/posts/${res.data.id}/image/`,
+        await axiosAuth.post(`/blog/posts/${res.data.id}/image/`,
             formdata,
             { headers: { 'Content-Type': 'multipart/form-data' } })
 
-        const response = await axiosInstance.get(`/blog/posts/${res.data.id}/`);
+        const response = await axiosAuth.get(`/blog/posts/${res.data.id}/`);
         
         this.setState(prevState => {
             return { posts: [...prevState.posts, response.data] }
@@ -70,8 +70,8 @@ export class AppContextProvider extends Component {
         formdata.append('image', newPost.image, newPost.image.name)
 
         await Promise.all([
-            axiosInstance.patch(`/blog/posts/${postID}/`, newPost),
-            axiosInstance.post(`/blog/posts/${postID}/image/`,
+            axiosAuth.patch(`/blog/posts/${postID}/`, newPost),
+            axiosAuth.post(`/blog/posts/${postID}/image/`,
                 formdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -79,7 +79,7 @@ export class AppContextProvider extends Component {
             })
         ])
 
-        const response = await axiosInstance.get(`/blog/posts/${postID}/`);
+        const response = await axiosAuth.get(`/blog/posts/${postID}/`);
         
         this.setState(prevState => {
             const updatedPosts = prevState.posts.map(post => {
@@ -91,7 +91,7 @@ export class AppContextProvider extends Component {
     }
 
     deletePost = (id) => {
-        return axiosInstance.delete(`/blog/posts/${id}/`)
+        return axiosAuth.delete(`/blog/posts/${id}/`)
             .then(response => {
                 this.setState(prevState => {
                     const updatedPosts = prevState.posts.filter(post => {
@@ -109,7 +109,7 @@ export class AppContextProvider extends Component {
             if (Date.now() < decodedToken.exp * 1000) {
                 return true
             } else {
-                axios.post(process.env.REACT_APP_API_BASE_URL + '/auth/token/refresh/', { refresh: this.state.refresh_token })
+                axiosUnauth.post('/auth/token/refresh/', { refresh: this.state.refresh_token })
                     .then(response => {
                         const { access, refresh } = response.data
                         const user_id = jwtDecode(access).user_id
@@ -136,7 +136,7 @@ export class AppContextProvider extends Component {
     }
 
     signup = (userInfo) => {
-        return axiosInstance.post('/auth/user/', userInfo)
+        return axiosUnauth.post('/auth/user/', userInfo)
             .then(response => {
                 const { access, refresh } = response.data
                 const user_id = jwtDecode(access).user_id
@@ -157,7 +157,7 @@ export class AppContextProvider extends Component {
     }
 
     login = (credentials) => {
-        return axiosInstance.post('/auth/token/obtain/', credentials)
+        return axiosUnauth.post('/auth/token/obtain/', credentials)
             .then(response => {
                 const { access, refresh } = response.data
                 const user_id = jwtDecode(access).user_id

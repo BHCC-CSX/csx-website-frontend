@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import { withContext } from "../AppContext";
 import { Layout } from "./WrappedLayout";
-import axios from "axios";
+import { axiosUnauth } from "../axios";
 
 const renderProfile = (props) => {
     return (
@@ -45,7 +45,7 @@ const Profile = (props) => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_BASE_URL + "/blog/categories/")
+        axiosUnauth.get("/blog/categories/")
             .then(response => {
                 setCategories(response.data)
                 return response
