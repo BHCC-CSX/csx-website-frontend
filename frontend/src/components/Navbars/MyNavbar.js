@@ -117,9 +117,9 @@ const MyNavbar = props => {
                   </React.Fragment>
                 :
                   <React.Fragment>
-                    <NavItem className="pt-1" active={window.location.pathname.includes('/profile')}>
-                      <NavLink to="/profile" tag={Link}>
-                        Profile
+                    <NavItem className="pt-1" active={window.location.pathname.includes('/account')}>
+                      <NavLink to="/account" tag={Link}>
+                        Account
                       </NavLink>
                     </NavItem>
                     <NavItem className="pt-1" active={window.location.pathname.includes('/logout')}>

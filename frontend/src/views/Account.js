@@ -40,7 +40,7 @@ const renderPlaceHolders = () => {
 };
 
 
-const Profile = (props) => {
+const Account = (props) => {
 
     const [categories, setCategories] = useState([]);
 
@@ -87,4 +87,4 @@ const Profile = (props) => {
     );
 }
 
-export default withContext(Profile);
+export default withContext(Account);

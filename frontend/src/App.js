@@ -7,7 +7,7 @@ import Blog from "./views/Blog";
 import BlogDetail from "./views/BlogDetail";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
-import Profile from "./views/Profile";
+import Account from "./views/Account";
 import BlogForm from "./views/BlogForm";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { NotFound } from "./views/404";
@@ -26,7 +26,7 @@ const App = () => {
             <Route path="/blog/posts/:id" render={props => <BlogDetail {...props} />} />
             <Route exact path="/login" render={props => <Login {...props} />} />
             <Route exact path="/signup" render={props => <Signup {...props} />} />
-            <ProtectedRoute path="/profile" component={Profile} />
+            <ProtectedRoute path="/account" component={Account} />
             <ProtectedRoute path="/blog/create" component={BlogForm} />
             <ProtectedRoute path="/blog/edit/:id" component={BlogForm} />
             <Route path="/404" render={props => <NotFound {...props} />} />

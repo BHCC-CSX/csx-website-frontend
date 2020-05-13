@@ -49,7 +49,7 @@ const Login = (props) => {
     }
     props.login(credentials)
       .then(() => clearInputs())
-      .then(() => props.history.push("/profile"))
+      .then(() => props.history.push("/account"))
       .catch(err => {
         var errorString = ""
 
