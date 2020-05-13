@@ -60,7 +60,7 @@ const Signup = (props) => {
 
     props.signup(newUser)
       .then(() => clearInputs())
-      .then(() => props.history.push("/"))
+      .then(() => props.history.push("/profile"))
       .catch(err => {
         var errorString = ""
 
