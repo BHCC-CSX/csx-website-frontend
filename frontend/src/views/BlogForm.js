@@ -3,6 +3,7 @@ import { Layout } from "./WrappedLayout";
 import { Form, FormGroup, Input, Button, Container, FormText } from "reactstrap";
 import { withContext } from "../AppContext";
 import axios from "axios";
+import imageCompression from "browser-image-compression";
 
 const BlogForm = (props) => {
 
@@ -18,7 +19,18 @@ const BlogForm = (props) => {
     const handleTitleChange = (event) => setTitle(event.target.value);
     const handleContentChange = (event) => setContent(event.target.value);
     const handleCategoryChange = (event) => setCategory(event.target.value);
-    const handleImageChange = (event) => setImage(event.target.files[0])
+    const handleImageChange = (event) => setImage(event.target.files[0]);
+
+    const compressImage = async () => {  
+        var options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true
+        }
+
+        const compressedFile = await imageCompression(image, options)
+        return compressedFile
+    }
 
     // we still need to get all categories so that we can choose one
     const [categories, setCategories] = useState([]);
@@ -39,26 +51,27 @@ const BlogForm = (props) => {
             })
     }, []);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const post = {
+        const compressedImage = await compressImage()
+
+        const post = await {
             title: title,
             content: content,
             category: category,
             author: props.user_id,
-            image: image
+            image: compressedImage
         }
-                
+            
         if (props.match.params.id) {
-            props.editPost(props.match.params.id, post)
-                .then(setTimeout(() => props.history.push(`/blog/posts/${props.match.params.id}`), 700))
+            await props.editPost(props.match.params.id, post)
+            setTimeout(() => props.history.push(`/blog/posts/${props.match.params.id}`), 700)
         } else {
-            props.addPost(post)
-                .then(response => {
-                    setTimeout(() => props.history.push(`/blog/posts/${response.data.id}`), 700)
-                })
-        }
+            const response = await props.addPost(post)
+            setTimeout(() => props.history.push(`/blog/posts/${response.data.id}`), 700)
+        }                   
+
     }
 
     return (
