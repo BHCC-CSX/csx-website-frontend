@@ -19,12 +19,12 @@ const BlogForm = (props) => {
     const [content, setContent] = React.useState("");
     const [category, setCategory] = React.useState("1");
     const [image, setImage] = React.useState(null);
+    const [imageName, setImageName] = React.useState("");
     const [categories, setCategories] = useState([]);
 
     const [upImg, setUpImg] = useState();
     const imgRef = useRef(null);
-    const [crop, setCrop] = useState({ unit: '%', width: 30, aspect: 16 / 9 });
-    const [previewUrl, setPreviewUrl] = useState();
+    const [crop, setCrop] = useState({ unit: '%', width: 30, aspect: 3 / 2 });
 
     // Effect Hooks
 
@@ -74,10 +74,11 @@ const BlogForm = (props) => {
     }
 
     const onSelectFile = e => {
-      if (e.target.files && e.target.files.length > 0) {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => setUpImg(reader.result));
-        reader.readAsDataURL(e.target.files[0]);
+        if (e.target.files && e.target.files.length > 0) {
+            setImageName(e.target.files[0].name)
+            const reader = new FileReader();
+            reader.addEventListener('load', () => setUpImg(reader.result));
+            reader.readAsDataURL(e.target.files[0]);
       }
     };
   
@@ -86,29 +87,29 @@ const BlogForm = (props) => {
     }, []);
   
     const makeClientCrop = async crop => {
-      if (imgRef.current && crop.width && crop.height) {
-          createCropPreview(imgRef.current, crop, 'newFile.jpeg');
+        if (imgRef.current && crop.width && crop.height) {
+          createCropPreview(imgRef.current, crop);
       }
     };
   
-    const createCropPreview = async (image, crop, fileName) => {
+    const createCropPreview = async (imageFile, crop) => {
       const canvas = document.createElement('canvas');
-      const scaleX = image.naturalWidth / image.width;
-      const scaleY = image.naturalHeight / image.height;
-      canvas.width = crop.width;
-      canvas.height = crop.height;
+      const scaleX = imageFile.naturalWidth / imageFile.width;
+      const scaleY = imageFile.naturalHeight / imageFile.height;
+      canvas.width = Math.ceil(crop.width*scaleX);
+      canvas.height = Math.ceil(crop.height*scaleY);
       const ctx = canvas.getContext('2d');
   
       ctx.drawImage(
-        image,
+        imageFile,
         crop.x * scaleX,
         crop.y * scaleY,
         crop.width * scaleX,
         crop.height * scaleY,
         0,
         0,
-        crop.width,
-        crop.height
+        crop.width*scaleX,
+        crop.height*scaleY
       );
 
       return new Promise((resolve, reject) => {
@@ -117,11 +118,9 @@ const BlogForm = (props) => {
             reject(new Error('Canvas is empty'));
             return;
           }
-          blob.name = fileName;
-          window.URL.revokeObjectURL(previewUrl);
-          setPreviewUrl(window.URL.createObjectURL(blob));
+          blob.name = "cropped_" + imageName;
           setImage(blob);
-        }, 'image/jpeg');
+        }, 'image/jpeg', 1);
 
       });
     };   
@@ -173,12 +172,12 @@ const BlogForm = (props) => {
                         </div>
                     
                         <ReactCrop
+                            imageStyle={{ maxHeight: "500px", maxWidth: "500px"}}
                             src={upImg}
                             onImageLoaded={onLoad}
                             crop={crop}
                             onChange={c => setCrop(c)}
                             onComplete={makeClientCrop} />
-                        {previewUrl && <img alt="Crop preview" src={previewUrl} />}
 
                         <div className="col-md">
                             <Button color="primary" type="submit" onClick={handleSubmit}>
