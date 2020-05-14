@@ -59,22 +59,22 @@ const Account = (props) => {
                     {renderProfile(props)}
                     <Row>
                         <Container>
+                            <Button
+                                className="btn-round"
+                                color="primary"
+                                tag={Link}
+                                to="/blog/create/"
+                                size="lg">
+                            Create New Post
+                            </Button>
+                        </Container>
+                        <Container>
                             <Col md={10} className="ml-auto mr-auto">
                                 <h3>{props.posts.length} Posts</h3>
-                                <Button
-                                    className="btn-round pull-right"
-                                    color="primary"
-                                    tag={Link}
-                                    to="/blog/create/"
-                                    size="lg"
-                                >
-                                    Create New Post
-                                </Button>
                             </Col>
                         </Container>
                     </Row>
                     <Row>
-
                         {
                         props.posts.length === 0 || categories.length === 0 ?
                         renderPlaceHolders() :
