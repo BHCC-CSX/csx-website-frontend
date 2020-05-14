@@ -109,11 +109,6 @@ const MyNavbar = props => {
                         Sign In
                       </NavLink>
                     </NavItem>
-                    <NavItem className="pt-1" active={window.location.pathname.includes('/signup')}>
-                      <NavLink to="/signup" tag={Link}>
-                        Sign Up
-                      </NavLink>
-                    </NavItem>
                   </React.Fragment>
                 :
                   <React.Fragment>
