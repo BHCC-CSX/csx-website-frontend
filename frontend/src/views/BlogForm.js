@@ -24,7 +24,7 @@ const BlogForm = (props) => {
 
     const [upImg, setUpImg] = useState();
     const imgRef = useRef(null);
-    const [crop, setCrop] = useState({ unit: '%', width: 30, aspect: 3 / 2 });
+    const [crop, setCrop] = useState({ unit: '%', width: 100, aspect: 3 / 2 });
 
     // Effect Hooks
 
@@ -172,10 +172,11 @@ const BlogForm = (props) => {
                         </div>
                     
                         <ReactCrop
-                            imageStyle={{ maxHeight: "500px", maxWidth: "500px"}}
+                            imageStyle={{ maxHeight: "500px", maxWidth: "100%", height: "auto"}}
                             src={upImg}
                             onImageLoaded={onLoad}
                             crop={crop}
+                            ruleOfThirds
                             onChange={c => setCrop(c)}
                             onComplete={makeClientCrop} />
 
