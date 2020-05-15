@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import DetailContainer from "../components/DetailContainer";
+import { axiosUnauth } from "../axios";
 
 export default class ProjectsDetail extends Component {
   state = {
@@ -9,21 +10,11 @@ export default class ProjectsDetail extends Component {
     status_code: null
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { id } = this.props.match.params;
 
-    if (id != null) {
-      fetch(process.env.REACT_APP_API_BASE_URL + `/projects/${id}`)
-        .then(response => {
-          this.setState({status_code: response.status});
-          return response.json();
-        })
-        .then(result => {
-          this.setState({
-            project: result
-          });
-        })
-    }
+    const response = await axiosUnauth.get(`/projects/${id}`)
+    this.setState({ project: response.data })
   }
 
   renderProject(){

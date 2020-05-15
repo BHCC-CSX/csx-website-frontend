@@ -2,22 +2,16 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import ProjectCard from "../components/ProjectCard";
 import { Layout } from "./WrappedLayout";
+import { axiosUnauth } from "../axios";
 
 export default class Projects extends Component {
   state = {
     projects: []
   };
 
-  componentDidMount() {
-    fetch(process.env.REACT_APP_API_BASE_URL + "/projects/")
-      .then(response => {
-        return response.json();
-      })
-      .then(results => {
-        this.setState({
-          projects: results
-        });
-      });
+  async componentDidMount() {
+    const response = await axiosUnauth.get("projects")
+    this.setState({ projects: response.data })
   }
 
   renderCards() {
