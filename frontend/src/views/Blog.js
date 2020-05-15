@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import BlogCard from "../components/BlogCard";
 import { Layout } from "./WrappedLayout";
+import { axiosUnauth } from "../axios";
 
 const renderCards = (blogs, users, categories) => {
     if (blogs != null) {
@@ -29,56 +30,38 @@ const renderPlaceHolders = () => {
 
 
 const Blog = (props) => {
+    const { id } = props.match.params;
 
+    // State Hooks
     const [blogs, setBlogs] = useState([]);
     const [users, setUsers] = useState([]);
     const [categories, setCategories] = useState([]);
 
-    const { id } = props.match.params;
-
+    // Effect Hooks
     useEffect(() => {
-        
-        fetch(process.env.REACT_APP_API_BASE_URL + "/blog/" + (id ? `categories/${id}/posts/` : ''))
-            .then(res => {
-                return res.json();
-            })
-            .then(response => {
-                setBlogs(response);
-            });
+        const fetchBlogs = async () => {
+            const response = await axiosUnauth.get("/blog/" + (id ? `categories/${id}/posts/` : ''))
+            setBlogs(response.data);
+        }
+        fetchBlogs()
     }, [id]);
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_BASE_URL + "/auth/users/", {
-            method: 'POST',
-            headers: {
-               'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(blogs.map((blog) => blog.author)),
-        })
-        .then(res => {
-            return res.json();
-        })
-        .then(response => {
-            setUsers(response);
-        });
+        const fetchUsers = async () => {
+            const idList = JSON.stringify(blogs.map((blog) => blog.author))
+            const response = await axiosUnauth.post("/auth/users/", idList)
+            setUsers(response.data);
+        }
+        fetchUsers()
     }, [blogs]);
 
-
-
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_BASE_URL + "/blog/categories/names/", {
-            method: 'POST',
-            headers: {
-               'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(blogs.map((blog) => blog.category)),
-        })
-            .then(res => {
-                return res.json();
-            })
-            .then(response => {
-                setCategories(response);
-            });
+        const fetchCategories = async () => {
+            const catList = JSON.stringify(blogs.map((blog) => blog.category))
+            const response = await axiosUnauth.post("/blog/categories/names/", catList)
+            setCategories(response.data);
+        }
+        fetchCategories()
     }, [blogs]);
 
     return (
@@ -100,23 +83,3 @@ const Blog = (props) => {
 }
 
 export default Blog;
-
-// const [data, setData] = useState({ blogs: null, users: null });
-
-// useEffect(() => {
-//     const fetchData = async () => {
-//         const respBlogs = await fetch(process.env.REACT_APP_API_BASE_URL + "/blog/")
-//             .then(res => {
-//                 return res.json();
-//             });
-    
-//         const respUsers = await fetch(process.env.REACT_APP_API_BASE_URL + "/users/")
-//             .then(res => {
-//                 return res.json();
-//             });
-
-//         setData({ blogs: respBlogs, users: respUsers });
-//     };
-
-//     fetchData();
-// }, []);
