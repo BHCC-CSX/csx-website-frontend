@@ -48,29 +48,27 @@ const Account = (props) => {
       <>
         <Layout transparent={false}>
             <Container style={{ paddingTop: "75px" }}>
-                    {renderProfile(props)}
-                    <Row>
-                        <Container>
-                            <Button
-                                className="btn-round"
-                                color="primary"
-                                tag={Link}
-                                to="/blog/create/"
-                                size="lg">
-                            Create New Post
-                            </Button>
-                        </Container>
-                        <Container>
-                            <Col md={10} className="ml-auto mr-auto">
-                                <h3>{props.posts.length} Posts</h3>
-                            </Col>
-                        </Container>
-                    </Row>
-                    <Row>
-                        {
-                        props.posts.length === 0 || categories.length === 0 ?
-                        renderPlaceHolders() :
-                        renderPosts(props.posts, props.user, categories)
+                <Row>
+                    <Col md={10} className="ml-auto mr-auto">
+                        <Row className="m-auto">
+                            <h1>Your Posts</h1>
+                            <div className="ml-auto">
+                                <Button
+                                    className="pull-right ml-auto"
+                                    color="primary"
+                                    outline
+                                    tag={Link}
+                                    to="/blog/create/"
+                                    size="md">
+                                        New Post
+                                </Button>
+                            </div>
+                        </Row>
+                    </Col>
+                    {
+                    categories.length === 0 ?
+                    renderPlaceHolders() :
+                    renderPosts(props.posts, props.user, categories)
                     }
                 </Row> 
             </Container>
