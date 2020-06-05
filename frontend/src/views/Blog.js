@@ -52,7 +52,9 @@ const Blog = (props) => {
             const response = await axiosUnauth.post("/auth/users/", idList)
             setUsers(response.data);
         }
-        fetchUsers()
+        if (blogs.length > 0) {
+            fetchUsers()
+        }
     }, [blogs]);
 
     useEffect(() => {
@@ -61,7 +63,9 @@ const Blog = (props) => {
             const response = await axiosUnauth.post("/blog/categories/names/", catList)
             setCategories(response.data);
         }
-        fetchCategories()
+        if (blogs.length > 0) {
+            fetchCategories()
+        }
     }, [blogs]);
 
     return (
