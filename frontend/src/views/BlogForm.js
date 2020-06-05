@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Redirect } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
 import { Form, FormGroup, Input, Button, Container, FormText, Spinner } from "reactstrap";
 import { withContext } from "../AppContext";
