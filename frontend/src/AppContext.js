@@ -24,7 +24,7 @@ export class AppContextProvider extends Component {
 
     getUser = () => {
         try {
-            axiosAuth.get(`/auth/user/${this.state.user_id}/`)
+            axiosUnauth.get(`/auth/user/${this.state.user_id}/`)
                 .then(response => {
                     const user = response.data
                     localStorage.setItem("user", JSON.stringify(user));
@@ -36,7 +36,7 @@ export class AppContextProvider extends Component {
     }
     
     getPosts = () => {
-        return axiosAuth.get("/blog/")
+        return axiosUnauth.get("/blog/")
             .then(response => {
                 const userPosts = response.data.filter(blog => blog.author === this.state.user_id)
                 this.setState({ posts: userPosts })
