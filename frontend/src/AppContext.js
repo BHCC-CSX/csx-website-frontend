@@ -18,7 +18,7 @@ export class AppContextProvider extends Component {
         }
     }
 
-    componentDidMount() {
+   componentDidMount() {
         this.getPosts()
     }
 
@@ -34,7 +34,7 @@ export class AppContextProvider extends Component {
             console.log(err)
         }
     }
-    
+
     getPosts = () => {
         return axiosUnauth.get("/blog/")
             .then(response => {
@@ -66,18 +66,18 @@ export class AppContextProvider extends Component {
 
     editPost = async (postID, newPost) => {
 
-        let formdata = new FormData();
-        formdata.append('image', newPost.image, newPost.image.name)
+        await axiosAuth.patch(`/blog/posts/${postID}/`, newPost)
 
-        await Promise.all([
-            axiosAuth.patch(`/blog/posts/${postID}/`, newPost),
-            axiosAuth.post(`/blog/posts/${postID}/image/`,
+        if (newPost.image) {
+            let formdata = new FormData();
+            formdata.append('image', newPost.image, newPost.image.name)
+            await axiosAuth.post(`/blog/posts/${postID}/image/`,
                 formdata, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-        ])
+        }
 
         const response = await axiosAuth.get(`/blog/posts/${postID}/`);
         
@@ -87,7 +87,6 @@ export class AppContextProvider extends Component {
             })
             return { posts: updatedPosts }
         })
-
     }
 
     deletePost = (id) => {
