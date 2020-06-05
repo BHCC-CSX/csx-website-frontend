@@ -52,15 +52,18 @@ const Login = (props) => {
       .then(() => props.history.push("/account"))
       .catch(err => {
         var errorString = ""
-
-        if (err.response.data.non_field_errors) {
-          err.response.data.non_field_errors.forEach(error => {
-            errorString += error + '\n'
-          })
-        } else if (err.response.data) {
-          for (const field in err.response.data) {
-            errorString += `${field[0].toUpperCase() + field.slice(1)} Error: ${err.response.data[field]}\n`
+        if (err.response) {
+          if (err.response.data.non_field_errors) {
+            err.response.data.non_field_errors.forEach(error => {
+              errorString += error + '\n'
+            })
+          } else if (err.response.data) {
+            for (const field in err.response.data) {
+              errorString += `${field[0].toUpperCase() + field.slice(1)} Error: ${err.response.data[field]}\n`
+            }
           }
+        } else if (err.message) {
+          errorString += err.message
         }
         setErrorMsg(errorString)
       })
