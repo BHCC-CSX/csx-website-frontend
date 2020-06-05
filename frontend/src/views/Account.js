@@ -6,14 +6,6 @@ import { withContext } from "../AppContext";
 import { Layout } from "./WrappedLayout";
 import { axiosUnauth } from "../axios";
 
-const renderProfile = (props) => {
-    return (
-        <div>
-            <h1>{props.user.username}</h1>
-        </div>
-    )
-}
-
 const renderPosts = (blogs, user, categories) => {
         return blogs.map((blog, index) => {
             const cat = categories.find(cat => cat.id === blog.category).name
