@@ -5,7 +5,6 @@ const MyParallaxHeader = (props) => {
 
   let parallaxComponent = React.createRef();
   React.useEffect(() => {
-    if (window.innerWidth > 991) {
       const updateScroll = () => {
         let windowScrollTop = window.pageYOffset / 3;
         parallaxComponent.current.style.transform =
@@ -15,7 +14,6 @@ const MyParallaxHeader = (props) => {
       return function cleanup() {
         window.removeEventListener("scroll", updateScroll);
       };
-    }
   });
 
   return (
