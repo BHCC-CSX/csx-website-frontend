@@ -27,8 +27,8 @@ const App = () => {
             <Route exact path="/login" render={props => <Login {...props} />} />
             <Route exact path="/signup" render={props => <Signup {...props} />} />
             <ProtectedRoute path="/account" component={Account} />
-            <ProtectedRoute path="/blog/create" component={BlogForm} />
-            <ProtectedRoute path="/blog/edit/:id" component={BlogForm} />
+            <ProtectedRoute path="/blog/create" render={props => <BlogForm {...props} edit={false} />} />
+            <ProtectedRoute path="/blog/edit/:id" render={props => <BlogForm {...props} edit={true} />} />
             <Route path="/404" render={props => <NotFound {...props} />} />
             <Route render={props => <NotFound {...props} />} />
         </Switch>
