@@ -19,6 +19,7 @@ const Signup = (props) => {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -34,6 +35,7 @@ const Signup = (props) => {
 
   const handleFirstNameChange = (event) => setFirstName(event.target.value);
   const handleLastNameChange = (event) => setLastName(event.target.value);
+  const handleEmailChange = (event) => setEmail(event.target.value);
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleConfirmPasswordChange = (event) => setConfirmPassword(event.target.value);
@@ -42,6 +44,7 @@ const Signup = (props) => {
     setUsername("")
     setFirstName("")
     setLastName("")
+    setEmail("")
     setPassword("")
     setConfirmPassword("")
     setErrorMsg("")
@@ -54,6 +57,7 @@ const Signup = (props) => {
       username: username,
       first_name: firstName,
       last_name: lastName,
+      email: email,
       password: password,
       confirm_password: confirmPassword
     }
@@ -131,6 +135,22 @@ const Signup = (props) => {
                           onFocus={() => setLastFocus(true)}
                           onBlur={() => setLastFocus(false)}
                           onChange={handleLastNameChange}
+                        ></Input>
+                      </InputGroup>
+
+                      <InputGroup
+                        className={
+                          "no-border input-lg" +
+                          (firstFocus ? " input-group-focus" : "")
+                        }
+                      >
+                        <Input
+                          placeholder="Email"
+                          type="text"
+                          value={email}
+                          onFocus={() => setFirstFocus(true)}
+                          onBlur={() => setFirstFocus(false)}
+                          onChange={handleEmailChange}
                         ></Input>
                       </InputGroup>
 
