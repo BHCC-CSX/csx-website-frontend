@@ -1,77 +1,49 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Redirect } from "react-router-dom";
 import { Layout } from "./WrappedLayout";
-import { Form, FormGroup, Input, Button, Container, FormText } from "reactstrap";
+import { Form, FormGroup, Input, Button, Container, FormText, Spinner } from "reactstrap";
 import { withContext } from "../AppContext";
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import imageCompression from "browser-image-compression";
 import { axiosUnauth } from "../axios";
+import { useFormik } from "formik";
+
+
 
 const BlogForm = (props) => {
-    // look for blog in posts prop
-    const blog = props.posts.find(post => {
-        return post.id.toString() === props.match.params.id
-    })
-
     // State Hooks
-    const [title, setTitle] = React.useState("");
-    const [content, setContent] = React.useState("");
-    const [category, setCategory] = React.useState("1");
+    const [blog, setBlog] = useState(null)
     const [image, setImage] = React.useState(null);
     const [imageName, setImageName] = React.useState("");
     const [categories, setCategories] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [upImg, setUpImg] = useState();
     const imgRef = useRef(null);
     const [crop, setCrop] = useState({ unit: '%', width: 100, aspect: 3 / 2 });
 
-    // Effect Hooks
-
     useEffect(() => {
-        if (blog) {
-            setTitle(blog.title)
-            setContent(blog.content)
-            setCategory(blog.category)
+        if (props.edit && props.posts.length > 0) {
+            const foundBlog = props.posts.find(post => {
+                return post.id.toString() === props.match.params.id
+            })
+            if (foundBlog) {
+                setBlog(foundBlog)
+            } else {
+                props.history.push('/404')
+            }
         }
-    }, [blog])
+    }, [props.posts, props.match.params.id, props.edit, props.history])
 
     useEffect(() => {
+        let mounted = true;
         axiosUnauth.get("/blog/categories/")
             .then(response => {
-                setCategories(response.data)
-                return response
+                mounted && setCategories(response.data)
             })
+        return () => mounted = false
     }, []);
-
-    // Event Handlers
-
-    const handleTitleChange = (event) => setTitle(event.target.value);
-    const handleContentChange = (event) => setContent(event.target.value);
-    const handleCategoryChange = (event) => setCategory(event.target.value);
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const compressedImage = await compressImage()
-
-        const post = await {
-            title: title,
-            content: content,
-            category: category,
-            author: props.user_id,
-            image: compressedImage
-        }
-
-        if (props.match.params.id) {
-            await props.editPost(props.match.params.id, post)
-            setTimeout(() => props.history.push(`/blog/posts/${props.match.params.id}`), 700)
-        } else {
-            const response = await props.addPost(post)
-            setTimeout(() => props.history.push(`/blog/posts/${response.data.id}`), 700)
-        }                   
-
-    }
 
     const onSelectFile = e => {
         if (e.target.files && e.target.files.length > 0) {
@@ -136,56 +108,159 @@ const BlogForm = (props) => {
         return compressedFile
     }
 
-    // if the blog is not in our blog list, either because it belongs to someone else or
-    // it doesn't exist, redirect to 404 page
-    if (!blog && props.match.params.id) {
-        return <Redirect push to="/404" />;
+    const formik = useFormik({
+        initialValues: {
+            title: blog ? blog.title : "",
+            content: blog ? blog.content : "",
+            category: blog ? blog.category : "1",
+            image: blog ? blog.image : null
+        }, 
+        onSubmit: async (values) => {
+            setIsLoading(true)
+
+            // in edit mode, all fields will be prepopulated except image. All fields are required except for image.
+            // in create mode, all fields will be blank and required.
+
+            const post = await {
+                title: values.title,
+                content: values.content,
+                category: values.category,
+                author: props.user_id,
+            }
+
+            if (image) {
+                post.image = await compressImage()
+            }
+
+            if (props.match.params.id) {
+                await props.editPost(props.match.params.id, post)
+                setTimeout(() => props.history.push(`/blog/posts/${props.match.params.id}`), 700)
+            } else {
+                const response = await props.addPost(post)
+                setTimeout(() => props.history.push(`/blog/posts/${response.data.id}`), 700)
+            }                   
+
+        },
+        validate: (values) => {
+            const errors = {};
+
+            if (!values.title)
+                errors.title = 'Required';
+        
+            if (!values.content)
+                errors.content = 'Required';
+
+            if (!image && !values.image)
+                errors.image = 'Required';
+
+            return errors;
+        },
+        enableReinitialize: true
+    })
+
+    if (isLoading) {
+        return (
+            <Layout>
+                <Container style={{ paddingTop: "75px" }}>
+                    <div className="section">
+                        <div className="container">
+                            <div className="row progress-container">
+                                <div className="col-md-8 ml-auto mr-auto spinner">
+                                    <Spinner color="primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </Layout>
+        )
     } else {
         return (
             <Layout>
                 <Container style={{ paddingTop: "75px" }}>
-                    <Form action="" className="form" method="">
-                        <FormGroup className="col-md">
-                            <label htmlFor="inputTitle">Title</label>
-                            <Input id="inputTitle" placeholder="Title" type="text" value={title} onChange={handleTitleChange}></Input>
-                        </FormGroup>
-                        <FormGroup className="col-md">
-                            <label htmlFor="inputContent">Content</label>
-                            <Input id="inputContent" placeholder="Content" rows="10" type="textarea" style={{ maxHeight: "500px" }} value={content} onChange={handleContentChange}></Input>
-                        </FormGroup>
-                        <FormGroup className="col-md-4">
-                            <label htmlFor="inputCategory">Category</label>
-                            <Input id="inputCategory" type="select" value={category} onChange={handleCategoryChange}>
-                                {categories.map((cat, key) => {
-                                    const selectedTag = props.blog && cat.id === category ? "selected=\"\"" : ""
-                                    return (
-                                        <option key={key} {...selectedTag} value={cat.id}>{cat.name}</option>
-                                    )
-                                })}
-                            </Input>
-                        </FormGroup>
-                        <div className="col-md">
-                            <label htmlFor="inputImage">Image</label>
-                            <Input id="inputImage" type="file" accept="image/png, image/jpeg" onChange={onSelectFile}>
-                            </Input>
-                            <FormText color="muted">Please upload an image in png or jpeg format.</FormText>
-                        </div>
-                    
-                        <ReactCrop
-                            imageStyle={{ maxHeight: "500px", maxWidth: "100%", height: "auto"}}
-                            src={upImg}
-                            onImageLoaded={onLoad}
-                            crop={crop}
-                            ruleOfThirds
-                            onChange={c => setCrop(c)}
-                            onComplete={makeClientCrop} />
+                    <div className="section">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-10 col-sm-10 col-lg-8 ml-auto mr-auto">
+                                    <h1>{blog ? "Edit " : "Create "} Post</h1>
+                                    <Form className="form" onSubmit={formik.handleSubmit}>
+                                        <FormGroup className="col-md">
+                                            <label htmlFor="inputTitle">Title</label>
+                                            <Input
+                                                id="inputTitle"
+                                                placeholder="Title"
+                                                name="title"
+                                                type="text"
+                                                value={formik.values.title}
+                                                onBlur={formik.handleBlur}
+                                                onChange={formik.handleChange}
+                                                invalid={formik.touched.title && formik.errors.title}
+                                            />
+                                            {formik.touched.title && formik.errors.title ? <Container className="text-danger">{formik.errors.title}</Container> : null}
+                                        </FormGroup>
+                                        <FormGroup className="col-md">
+                                            <label htmlFor="inputContent">Content</label>
+                                            <Input
+                                                id="inputContent"
+                                                placeholder="Content"
+                                                name="content"
+                                                type="textarea"
+                                                rows="10"
+                                                value={formik.values.content}
+                                                onBlur={formik.handleBlur}
+                                                onChange={formik.handleChange}
+                                                invalid={formik.touched.content && formik.errors.content}
+                                            />
+                                            { formik.touched.content && formik.errors.content ? <Container className="text-danger">{formik.errors.content}</Container> : null }
+                                        </FormGroup>
+                                        <FormGroup className="col-md-4">
+                                            <label htmlFor="inputCategory">Category</label>
+                                            <Input
+                                                id="inputCategory"
+                                                name="category"
+                                                type="select"
+                                                value={formik.values.category}
+                                                onChange={formik.handleChange}>
+                                                {categories.map((cat, key) => {
+                                                    return (
+                                                        <option key={key} value={cat.id}>{cat.name}</option>
+                                                    )
+                                                })}
+                                            </Input>
+                                        </FormGroup>
+                                        <div className="col-md">
+                                            <label htmlFor="inputImage">Image</label>
+                                            <Input
+                                                id="inputImage"
+                                                name="image"
+                                                type="file"
+                                                accept="image/png, image/jpeg"
+                                                onBlur={formik.handleBlur}
+                                                onChange={onSelectFile} 
+                                            />
+                                            <FormText color="muted">Please upload an image in png or jpeg format.</FormText>
+                                            { formik.touched.image && formik.errors.image ? <Container className="text-danger">{formik.errors.image}</Container> : null }
+                                        </div>
+                                    
+                                        <ReactCrop
+                                            imageStyle={{ maxHeight: "500px", maxWidth: "100%", height: "auto"}}
+                                            src={upImg}
+                                            onImageLoaded={onLoad}
+                                            crop={crop}
+                                            ruleOfThirds
+                                            onChange={c => setCrop(c)}
+                                            onComplete={makeClientCrop} />
 
-                        <div className="col-md">
-                            <Button color="primary" type="submit" onClick={handleSubmit}>
-                                Submit
-                        </Button>
+                                        <div className="col-md">
+                                            <Button color="primary" type="submit">
+                                                Submit
+                                            </Button>
+                                        </div>
+                                    </Form>
+                                </div>
+                            </div>
                         </div>
-                    </Form>
+                    </div>
                 </Container>
             </Layout>
         )
