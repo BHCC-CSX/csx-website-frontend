@@ -41,7 +41,8 @@ const Blog = (props) => {
     useEffect(() => {
         const fetchBlogs = async () => {
             const response = await axiosUnauth.get("/blog/" + (id ? `categories/${id}/posts/` : ''))
-            setBlogs(response.data);
+            const approvedBlogs = await response.data.filter(blog => blog.approved)
+            setBlogs(approvedBlogs);
         }
         fetchBlogs()
     }, [id]);
