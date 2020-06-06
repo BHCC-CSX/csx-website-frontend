@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
-import { Row, Card, CardImg, Button, Modal } from "reactstrap";
+import { Row, Card, CardImg, Button, Modal, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 import { withContext } from "../AppContext";
 
 const BlogCard = (props) => {
-  const { id, title, image, content } = props.blog;
+  const { id, title, image, content, approved } = props.blog;
 
   const [modalLive, setModalLive] = React.useState(false);
 
@@ -76,7 +76,8 @@ const BlogCard = (props) => {
             {
               props.editable && 
               (
-                <div>
+                  <div>
+                  { approved ? <Badge className="mt-2" color="success">Approved</Badge> : <Badge className="mt-2" color="warning">Not Yet Approved</Badge> }
                   <Button
                         className="btn-round ml-2 pull-right"
                         color="primary"
