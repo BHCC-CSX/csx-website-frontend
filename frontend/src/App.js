@@ -7,6 +7,7 @@ import Blog from "./views/Blog";
 import BlogDetail from "./views/BlogDetail";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
+import Activate from "./views/Activate";
 import Account from "./views/Account";
 import BlogForm from "./views/BlogForm";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/blog/posts/:id" render={props => <BlogDetail {...props} />} />
             <Route exact path="/login" render={props => <Login {...props} />} />
             <Route exact path="/signup" render={props => <Signup {...props} />} />
+            <Route path="/activate" render={props => <Activate {...props} />} />
             <ProtectedRoute path="/account" component={Account} />
             <ProtectedRoute path="/blog/create" render={props => <BlogForm {...props} edit={false} />} />
             <ProtectedRoute path="/blog/edit/:id" render={props => <BlogForm {...props} edit={true} />} />
