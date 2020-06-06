@@ -25,6 +25,7 @@ const Signup = (props) => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState("");
+  const [submitted, setSubmitted] = React.useState(false);
 
   React.useEffect(() => {
     document.body.classList.add("login-page");
@@ -64,8 +65,9 @@ const Signup = (props) => {
 
     props.signup(newUser)
       .then(() => clearInputs())
-      .then(() => props.history.push("/account"))
+      .then(() => setSubmitted(true))
       .catch(err => {
+        console.log(err)
         var errorString = ""
 
         if (err.response.data.non_field_errors) {
@@ -81,6 +83,31 @@ const Signup = (props) => {
       })
   }
 
+  if (submitted) {
+    return (
+      <>
+      <Layout transparent={true}>
+        {/* <div className="page-header clear-filter" filter-color="orange"> */}
+        <div className="page-header clear-filter">
+          <div
+            className="page-header-image"
+            style={{
+              backgroundImage: "url('../poster.png')",
+            }}
+          ></div>
+          <div className="content">
+            <Container style={{ paddingTop: "75px" }}>
+                <Col className="ml-auto mr-auto" md="4">
+                  <h2> Success </h2>
+                Please verify your account by clicking the activation link that has been sent to your email.
+              </Col>
+            </Container>
+          </div>
+        </div>
+      </Layout>
+    </>
+    )
+  }
   return (
     <>
       <Layout transparent={true}>
