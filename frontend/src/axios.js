@@ -6,7 +6,7 @@ const axiosAuth = axios.create({
         'Content-Type': 'application/json',
         'accept': 'application/json'
     },
-    timeout: 5000
+    timeout: 10000
 });
 
 axiosAuth.interceptors.request.use((config) => {
@@ -24,7 +24,7 @@ const axiosUnauth = axios.create({
         'Content-Type': 'application/json',
         'accept': 'application/json'
     },
-    timeout: 5000
+    timeout: 10000
 });
 
 export { axiosAuth, axiosUnauth };
