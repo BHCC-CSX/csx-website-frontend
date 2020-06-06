@@ -133,12 +133,10 @@ const BlogForm = (props) => {
 
             if (props.match.params.id) {
                 await props.editPost(props.match.params.id, post)
-                setTimeout(() => props.history.push(`/blog/posts/${props.match.params.id}`), 700)
             } else {
-                const response = await props.addPost(post)
-                setTimeout(() => props.history.push(`/blog/posts/${response.data.id}`), 700)
+                await props.addPost(post)
             }                   
-
+            setTimeout(() => props.history.push('/account'), 700)
         },
         validate: (values) => {
             const errors = {};
